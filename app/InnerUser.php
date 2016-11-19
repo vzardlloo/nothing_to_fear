@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 class InnerUser extends Model
 {
     protected $primaryKey = 'inner_user_id';
-    protected $fillable = array('user_name','password', 'phone_num');
+    protected $table = 'inner_user';
+    protected $fillable = array('user_name','password', 'phone_num', 'role', 'level');
 
     public function user_log(){
     	return $this->hasMany(UserLog::Class);

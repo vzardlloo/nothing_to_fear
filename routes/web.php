@@ -67,3 +67,7 @@ Route::get('/task','TaskController@index');
  * @return [type]                   [description]
  */
 Route::post('/task','TaskController@create');
+
+
+Route::get('/user','UserController@index');
+Route::post('/user','UserController@create');

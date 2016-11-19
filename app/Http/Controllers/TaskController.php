@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Farmer;
+
+use App\ProvinceRegion;
+use App\CityRegion;
+use App\AreaRegion;
+use App\TownRegion;
+use App\CountryRegion;
 
 class TaskController extends Controller
 {
@@ -15,7 +22,15 @@ class TaskController extends Controller
      */
     public function index()
     {
-    	return view('task.index');
+    	$farmers = Farmer::all();
+
+    	$provinces = ProvinceRegion::all();
+    	$cities = CityRegion::all();
+    	$areaes = AreaRegion::all();
+    	$towns = TownRegion::all();
+    	$countries = CountryRegion::all();
+
+    	return view('task.index',compact('farmers','provinces','cities','areaes','towns','countries'));
     }
 
 	 /**
@@ -30,4 +45,6 @@ class TaskController extends Controller
     	$task_name = $request->get('task_name');
     	return $task_name;
     }
+
+    
 }
