@@ -51,3 +51,23 @@ Route::post('login', array('before'=>'csrf',function(){
 		}
 	}
 }));
+
+/**
+ * 植保任务_首页
+ * @author 胡军
+ * @date   2016年11月19日09:30:40
+ * @return [type]                   [description]
+ */
+Route::get('/task','TaskController@index');
+
+/**
+ * 植保任务_创建
+ * @author 胡军
+ * @date   2016年11月19日09:30:40
+ * @return [type]                   [description]
+ */
+Route::post('/task','TaskController@create');
+
+
+Route::get('/user','UserController@index');
+Route::post('/user','UserController@create');
