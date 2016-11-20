@@ -1,4 +1,5 @@
 @extends('layout')
+@section('title','inner_user_index')
 @section('content')
 
 	<div class="panel">
@@ -9,7 +10,7 @@
 		@endforeach
 	</div>
 
-	<form action="/user" method="post">
+	<form action="user" method="post">
 		{{ csrf_field() }}
 		<input class="form-control" type="text" name="user_name" placeholder="用户名">
 		<input class="form-control" type="password" name="password" placeholder="密码">

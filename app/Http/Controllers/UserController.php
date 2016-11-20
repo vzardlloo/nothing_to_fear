@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
     	$users = InnerUser::all();
-    	return view('user.index', compact('users'));
+    	return view('add.user', compact('users'));
     }
 
 	 /**

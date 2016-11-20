@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Farmer;
 
+use App\InnerUser;
+use App\Farmer;
+use App\UavInfo;
+use App\WeatherList;
 use App\ProvinceRegion;
 use App\CityRegion;
 use App\AreaRegion;
@@ -22,15 +25,17 @@ class TaskController extends Controller
      */
     public function index()
     {
+    	$users = InnerUser::all();
     	$farmers = Farmer::all();
-
+    	$uaves = UavInfo::all();
+    	$weather = WeatherList::all();
     	$provinces = ProvinceRegion::all();
     	$cities = CityRegion::all();
     	$areaes = AreaRegion::all();
     	$towns = TownRegion::all();
     	$countries = CountryRegion::all();
 
-    	return view('task.index',compact('farmers','provinces','cities','areaes','towns','countries'));
+    	return view('task.index',compact('users','farmers','uaves','weather','provinces','cities','areaes','towns','countries'));
     }
 
 	 /**
