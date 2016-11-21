@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -71,3 +72,6 @@ Route::post('/task','TaskController@create');
 
 Route::get('/user','UserController@index');
 Route::post('/user','UserController@create');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

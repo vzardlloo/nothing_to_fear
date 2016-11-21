@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UavInfo;
+
 class UavController extends Controller
 {
 	/**
@@ -24,8 +25,10 @@ class UavController extends Controller
 	* @date   2016年11月20日10:15:29
 	* @return [type]                   [description]
 	*/
-    public function create()
+    public function create(Request $request)
     {
+    	$info = $request->all();
+    	UavInfo::create($info);
     	return back();
     }
 }
