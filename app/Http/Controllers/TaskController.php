@@ -47,6 +47,7 @@ class TaskController extends Controller
     	$towns = TownRegion::all();
     	$countries =  CountryRegion::all();
         $task_info = TaskInfo::all();
+        //编写联合查询语句--得到合集的数组处理
     	return view('task.index',compact('task_info','users','farmers','uaves','weather','provinces','cities','areaes','towns','countries'));
     }
 

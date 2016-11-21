@@ -1,8 +1,9 @@
-@extends('layout')
-@section('title','address_index')
-@section('content')	
-<h3>address</h3>
-	<select class="form-horizontal" name="province">
+@extends('layouts.add')
+
+@section('title','测试-添加地址')
+@section('panel-heading-1','从数据库读取 ......')
+@section('panel-body-1')
+    <select class="form-horizontal" name="province">
 		@foreach($provinces as $one)
 			<option>
 				{{ $one->province_name }}
@@ -37,15 +38,26 @@
 			</option>
 		@endforeach
 	</select>
-
-<h3>添加地址</h3>
-	<form action="/add/address" method="post">
+@endsection
+@section('panel-heading-2','请在下方填写信息')
+@section('panel-body-2')
+	<form action="{{ url('add/address') }}" method="post">
 		{{ csrf_field() }}
-		<input type="text" name="province" placeholder="省">
-		<input type="text" name="city" placeholder="市">
-		<input type="text" name="area" placeholder="区/县">
-		<input type="text" name="town" placeholder="镇/乡">
-		<input type="text" name="country" placeholder="村/队">
+		<div class="form-group">
+			<input class="form-control" type="text" name="province" placeholder="省">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" name="city" placeholder="市">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" name="area" placeholder="区/县">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" name="town" placeholder="镇/乡">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" name="country" placeholder="村/队">
+		</div>
 		<button type="submit" class="btn btn-primary">添加</button>
 	</form>
 @endsection

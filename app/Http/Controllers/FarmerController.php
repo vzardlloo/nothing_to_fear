@@ -12,7 +12,18 @@ use App\CountryRegion;
 
 class FarmerController extends Controller
 {
-    //
+    
+    /**
+     * 登录认证
+     * @author 胡军
+     * @date   2016年11月21日10:58:32
+     * @return [type]                   [description]
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
+
     public function index()
     {
     	$farmers = Farmer::paginate(8);
@@ -24,8 +35,17 @@ class FarmerController extends Controller
     	return view('add.farmer',compact('farmers','provinces','cities','areaes','towns','countries'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $farmer_info = $request->all();
+        $farmer_address = '';
+        foreach ($farmer_info as $farmer => $info) {
+            if(starts_with($farmer,'place_')){
+                $farmer_address.=$info.',';
+            }
+        }
+        $farmer_info = array_add($farmer_info, 'farmer_address', $farmer_address);
+        Farmer::create($farmer_info);
     	return back();
     }
 }

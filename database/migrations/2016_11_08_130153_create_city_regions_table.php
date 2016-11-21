@@ -18,7 +18,8 @@ class CreateCityRegionsTable extends Migration
             $table->tinyInteger('province_id');
             $table->string('city_name');
             $table->timestamps();
-        });
+
+            $table->unique('city_name');
     }
 
     /**

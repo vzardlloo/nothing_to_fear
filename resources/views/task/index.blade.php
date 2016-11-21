@@ -1,19 +1,24 @@
-@extends('layout')
-@section('title','task_index')
-@section('content')
+@extends('layouts.add')
+
+@section('title','测试-创建植保任务')
+@section('panel-heading-1','从数据库读取 ......')
+@section('panel-body-1')
 	<ul class="list-group">
 		@foreach($task_info as $one)
-			<li class="list-group-item">{{ $one->task_farmer_id }}</li>
+			<li class="list-group-item">{{ $one->task_work_time }} -- {{ $one->task_farmer_id}}</li>
 		@endforeach
 	</ul>
+@endsection
+@section('panel-heading-2','请在下方填写信息')
+@section('panel-body-2')
 	<div>
 		<form action="{{ url('/task') }}" method="post">
 			{{ csrf_field() }}
-			<h3>队伍编号：</h3>
+			<h4>队伍编号：</h4>
 			@foreach($users as $one)
 				<input type="checkbox" class="form-control-item"  name="{{ 'task_team_id+'.$one->inner_user_id}}" value="{{ $one->inner_user_id }}">{{ $one->user_name }}
 			@endforeach
-			<h3>农户编号：</h3>
+			<h4>农户编号：</h4>
 			<select class="form-control" name="task_farmer_id">
 				@foreach($farmers as $one)
 					<option value="{{ $one->farmer_id }}">
@@ -23,7 +28,7 @@
 			</select>
 
 			<div class="form-horizontal">
-				<h3>作业地点:</h3>
+				<h4>作业地点:</h4>
 				<select class="form-horizontal" name="place_province">
 					@foreach($provinces as $one)
 						<option value="{{ $one->province_id }}">
@@ -60,18 +65,20 @@
 					@endforeach
 				</select>	
 			</div>		
-			<h3>作业日期</h3>
+			<h4>作业日期</h4>
 			<input type="date" class="input-item" name="task_work_time">
-			<h3>飞机编号：</h3>
+			<h4>飞机编号：</h4>
 			@foreach($uaves as $one)
 			<label class="checkbox-inline">
 				<input type="checkbox" name="{{ 'task_uav_id+'.$one->uav_id }}" value="{{ $one->uav_id }}">{{ $one->uav_name }}
 			</label>
 			@endforeach
+			<div class="form-group">
 			<input type="text" name="task_area" class="form-control" placeholder="作业面积">
-			<!-- <h3>任务时间：</h3>
+			</div>
+			<!-- <h4>任务时间：</h4>
 			<input type="datetime" name="task_during" class="form-control">
-			<h3>任务天气：</h3>
+			<h4>任务天气：</h4>
 			<input type="text" name="level" class="form-control" placeholder="">
 			<select>
 				@foreach($weather as $one)

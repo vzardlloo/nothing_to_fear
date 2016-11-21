@@ -18,6 +18,8 @@ class CreateAreaRegionsTable extends Migration
             $table->tinyInteger('city_id');
             $table->string('area_name',10);
             $table->timestamps();
+
+            $table->unique('area_name');
         });
     }
 

@@ -10,6 +10,17 @@ use DateTime;
 use Carbon\Carbon;		//获取时间，https://scotch.io/tutorials/easier-datetime-in-laravel-and-php-with-carbon
 class DatabaseController extends Controller
 {
+
+    /**
+     * 登录认证
+     * @author 胡军
+     * @date   2016年11月21日10:58:32
+     * @return [type]                   [description]
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
     public function index(){
 
     	$user_log = new UserLog();

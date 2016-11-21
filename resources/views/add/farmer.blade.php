@@ -1,7 +1,8 @@
-@extends('layout')
-@section('title','farmer_index')
-@section('content')
-	
+@extends('layouts.add')
+
+@section('title','测试-添加农户')
+@section('panel-heading-1','从数据库读取 ......')
+@section('panel-body-1')
 	<ul class="list-group">
 	    @foreach($farmers as $one)
 	    	<li class="list-group-item">
@@ -13,56 +14,65 @@
 	    @endforeach
 	</ul>
 	{{ $farmers->links() }}
-
-	<form action="/add/farmer" method="post">
+@endsection
+@section('panel-heading-2','请在下方填写信息')
+@section('panel-body-2')
+	<form action="{{ url('add/farmer') }}" method="post">
 		{{ csrf_field() }}
-		<input type="text" name="farmer_name" placeholder="farmer_name">
-		<input type="text" name="phone_num" placeholder="phone_number">
-		<h3>farmer_address</h3>
-			<select class="form-horizontal" name="province">
-				@foreach($provinces as $one)
-					<option>
-						{{ $one->province_name }}
-					</option>
-				@endforeach
-			</select>
-			<select class="form-horizontal" name="city">
-				@foreach($cities as $one)
-					<option>
-						{!! $one->city_name !!}
-					</option>
-				@endforeach
-			</select>
-			<select class="form-horizontal" name="area">
-				@foreach($areaes as $one)
-					<option>
-						{!! $one->area_name !!}
-					</option>
-				@endforeach
-			</select>	
-			<select class="form-horizontal" name="town">
-				@foreach($towns as $one)
-					<option>
-						{!! $one->town_name !!}
-					</option>
-				@endforeach
-			</select>	
-			<select class="form-horizontal" name="country">
-				@foreach($countries as $one)
-					<option>
-						{!! $one->country_name !!}
-					</option>
-				@endforeach
-			</select>
+		<div class="form-group">
+			<input class="form-control" type="text" name="farmer_name" placeholder="农户姓名">
+		</div>
+		<div class="form-group">
+			<input class="form-control" type="text" name="phone_num" placeholder="农户手机号">
+		</div>
+		<label class="control-label">住址</label>
+			<select class="form-horizontal" name="place_province">
+					@foreach($provinces as $one)
+						<option value="{{ $one->province_id }}">
+							{{ $one->province_name }}
+						</option>
+					@endforeach
+				</select>
+				<select class="form-horizontal" name="place_city">
+					@foreach($cities as $one)
+						<option value="{{ $one->city_id }}">
+							{{ $one->city_name }}
+						</option>
+					@endforeach
+				</select>
+				<select class="form-horizontal" name="place_area">
+					@foreach($areaes as $one)
+						<option value="{{ $one->area_id }}">
+							{{ $one->area_name }}
+						</option>
+					@endforeach
+				</select>	
+				<select class="form-horizontal" name="place_town">
+					@foreach($towns as $one)
+						<option value="{{ $one->town_id }}">
+							{{ $one->town_name }}
+						</option>
+					@endforeach
+				</select>	
+				<select class="form-horizontal" name="place_country">
+					@foreach($countries as $one)
+						<option value="{{ $one->country_id }}">
+							{{ $one->country_name }}
+						</option>
+					@endforeach
+				</select>	
 
 			<a href="/add/address">没有想要的地址?</a>
-		<h3>farmer_level</h3>	
-		<select name="farmer_level">
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>4</option>
-			<option>5</option>
-		</select>
+			<div class="form-group">
+			<label class="control-label">农户等级</label>
+			<select name="farmer_level">
+				<option value="1">1级--100亩以下</option>
+				<option value="2">2级--100亩到200亩</option>
+				<option value="3">3级--200亩到350亩</option>
+				<option value="4">4级--350亩到500亩</option>
+				<option value="5">5级--大于500亩</option>
+			</select>
+			</div>
+			<button type="submit" class="btn btn-primary"> 添加农户信息	</button>
 	</form>
 @endsection
