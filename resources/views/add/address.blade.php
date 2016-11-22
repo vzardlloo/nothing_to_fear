@@ -1,43 +1,59 @@
 @extends('layouts.add')
 
 @section('title','测试-添加地址')
+@section('bar','添加地址')
 @section('panel-heading-1','从数据库读取 ......')
 @section('panel-body-1')
-    <select class="form-horizontal" name="province">
+<div class="form-group">
+	<select class="form-control" name="province">
 		@foreach($provinces as $one)
 			<option>
 				{{ $one->province_name }}
 			</option>
 		@endforeach
 	</select>
-	<select class="form-horizontal" name="city">
+</div>
+
+<div class="form-group">
+	<select class="form-control" name="city">
 		@foreach($cities as $one)
 			<option>
 				{!! $one->city_name !!}
 			</option>
 		@endforeach
 	</select>
-	<select class="form-horizontal" name="area">
+</div>
+
+<div class="form-group">
+	<select class="form-control" name="area">
 		@foreach($areaes as $one)
 			<option>
 				{!! $one->area_name !!}
 			</option>
 		@endforeach
 	</select>	
-	<select class="form-horizontal" name="town">
+
+</div>
+<div class="form-group">
+	<select class="form-control" name="town">
 		@foreach($towns as $one)
 			<option>
 				{!! $one->town_name !!}
 			</option>
 		@endforeach
-	</select>	
-	<select class="form-horizontal" name="country">
+	</select>
+</div>
+	
+<div class="form-group">
+	<select class="form-control" name="country">
 		@foreach($countries as $one)
 			<option>
 				{!! $one->country_name !!}
 			</option>
 		@endforeach
 	</select>
+</div>
+
 @endsection
 @section('panel-heading-2','请在下方填写信息')
 @section('panel-body-2')

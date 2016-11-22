@@ -46,7 +46,12 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 106px;
+        }
+        @media (max-width: 769px){
+            .title{
+                font-size: 58px;
+            }
         }
 
         .links > a {
@@ -59,6 +64,11 @@
             text-transform: uppercase;
         }
 
+        @media (max-width: 769px){
+            .links > a{
+                padding: 0 6px;
+            }
+        }
         .m-b-md {
             margin-bottom: 30px;
         }

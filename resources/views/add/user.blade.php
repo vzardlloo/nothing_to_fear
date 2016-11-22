@@ -1,15 +1,37 @@
 @extends('layouts.add')
 
 @section('title','测试-添加用户')
+@section('bar','添加用户')
 @section('panel-heading-1','从数据库读取 ......')
 @section('panel-body-1')
-<div class="panel">
-	@foreach($users as $one)
-	<li>
-		{{ $one->user_name }}
-	</li>
-	@endforeach
-</div>
+<table class="table">
+	<thead>
+		<th>工作人员</th>
+		<th>手机号</th>
+		<th>植保职位</th>
+	</thead>
+	<tbody>
+		@foreach($users as $one)
+			<tr>
+			<td>
+				{{ $one->user_name }}				
+			</td>
+			<td>
+				{{ $one->phone_num }}
+			</td>
+			<td>
+			@if($one->role == 1)
+				观察员
+			@elseif($one->role == 2)
+				飞控手
+			@else
+				其他
+			@endif
+			</td>
+			</tr>
+		@endforeach
+	</tbody>
+</table>
 @endsection
 @section('panel-heading-2','请在下方填写信息')
 @section('panel-body-2')
