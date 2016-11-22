@@ -15,6 +15,7 @@ class CreateTaskMarksTable extends Migration
     {
         Schema::create('task_marks', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('task_id');
             $table->string('task_during',20);
             $table->string('task_weather',10);      //格式：1，2  前表示天气后表示风力
             $table->tinyInteger('task_mark');       //对本次作业评级,1=A+;2=A;3=B;4=C;5=D;6=E;7=F;

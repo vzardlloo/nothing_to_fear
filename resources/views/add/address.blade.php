@@ -4,6 +4,7 @@
 @section('bar','添加地址')
 @section('panel-heading-1','从数据库读取 ......')
 @section('panel-body-1')
+
 <div class="form-group">
 	<select class="form-control" name="province">
 		@foreach($provinces as $one)

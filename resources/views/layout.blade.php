@@ -86,5 +86,7 @@
 </div>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="js/mobiscroll.js"></script>
 </body>
 </html>

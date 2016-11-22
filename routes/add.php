@@ -39,3 +39,14 @@ Route::post('uav','UavController@create');
 Route::get('/user','UserController@index');
 
 Route::post('/user','UserController@create');
+
+
+/**
+ * 对植保任务评价
+ * @author 胡军 <hujun123qwe@163.com>
+ * @date 	2016年11月22日21:26:04
+ * @return webpage see in resources/add/..
+ */
+Route::get('mark','MarkController@index');
+
+Route::post('mark','MarkController@create');

@@ -46,9 +46,23 @@ class TaskController extends Controller
     	$areaes = AreaRegion::all();
     	$towns = TownRegion::all();
     	$countries =  CountryRegion::all();
-        $task_info = TaskInfo::all();
-        //编写联合查询语句--得到合集的数组处理
+
+        /**
+         * 编写联合查询语句--得到合集的数组处理
+         * @auth 胡军
+         * @time 2016年11月22日21:00:59
+         * @var 
+                [{"task_work_time":"2016-11-16 00:00:00","task_status":0,"task_area":12,"farmer_name":"\u5510\u4ee5\u590f"},
+                {"task_work_time":"2016-11-19 00:00:00","task_status":0,"task_area":12,"farmer_name":"\u90b0\u55e3\u7530"}]
+         */
+        $task_info = \DB::table('task_info')
+            ->join('farmer','task_info.task_farmer_id', '=','farmer.farmer_id')
+            ->select('task_info.task_work_time', 'task_id','task_info.task_status','task_info.task_area','farmer.farmer_name')
+            ->get();
+
+
     	return view('task.index',compact('task_info','users','farmers','uaves','weather','provinces','cities','areaes','towns','countries'));
+        // return $task_info;
     }
 
 	 /**

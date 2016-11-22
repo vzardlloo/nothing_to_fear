@@ -10,6 +10,7 @@
 		<th>农户名</th>
 		<th>作业亩数</th>
 		<th>是否作业</th>
+		<th>评价</th>
 	</thead>
 	<tbody>
 		@foreach($task_info as $one)
@@ -18,13 +19,29 @@
 					{{ $one->task_work_time }}
 				</td>
 				<td>
-					{{ $one->task_farmer_id}}
+					{{ $one->farmer_name}}
 				</td>
 				<td>
 					{{ $one->task_area }}
 				</td>
 				<td>
-					否
+					@if($one->task_status==0)
+						否			
+					@elseif($one->task_status==1)
+						是	
+					@endif
+				</td>
+				<td>
+					@if($one->task_status==1)
+						<form action="{{ url('add/mark')}}" method="get">
+						<input type="hidden" name="task_id" value="{{ $one->task_id }}" />
+						<button type="submit" class="btn btn-default">请评价</button>	
+						</form>		
+					@elseif($one->task_status==0)
+						<button type="button" class="btn btn-default" disabled="disabled">请作业</button>	
+					@endif
+
+					
 				</td>
 			</tr>
 		@endforeach
@@ -98,7 +115,8 @@
 			</div>		
 			<label for="task_work_time" class="control-label">作业日期:</label>
 			<div class="form-group">				
-			<input type="date" class="form-control" name="task_work_time">
+			<!-- 注意后面的/>,没有加/居然没法运行,折腾了一下午 -->
+			<input type="text" class="form-control" name="task_work_time" id="selDate"/>
 			</div>
 			<label class="control-label">飞机编号:</label>
 			<div class="form-group">
@@ -127,6 +145,34 @@
 			<textarea rows="4" cols="80" name="task_common" class="form-control" placeholder="任务评价："></textarea> -->
 			<button type="submit" class="btn btn-primary">提交</button>
 		</form>
+
 	</div>
-	
+@endsection
+@section('style')
+<script src="js/jquery-2.1.1.js"></script>
+<link href="/css/mobiscroll_date.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/mobiscroll.css">
+<script type="text/javascript">	
+    $(function(){
+        //日期控件
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#selDate").mobiscroll($.extend(opt['date'], opt['default']));
+    });
+</script>
 @endsection
