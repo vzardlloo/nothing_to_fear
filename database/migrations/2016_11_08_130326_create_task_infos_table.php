@@ -15,6 +15,7 @@ class CreateTaskInfosTable extends Migration
     {
         Schema::create('task_infos', function (Blueprint $table) {
             $table->increments('task_id');
+            $table->string('task_name',255);
             $table->string('task_team_id',255);
             $table->string('task_farmer_id',10);      
             $table->string('task_place_id',255);
@@ -22,6 +23,8 @@ class CreateTaskInfosTable extends Migration
             $table->float('task_area');
             $table->dateTime('task_work_time');
             $table->timestamps();
+
+            $table->unique('task_name');
         });
     }
 

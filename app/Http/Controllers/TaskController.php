@@ -14,7 +14,7 @@ use App\AreaRegion;
 use App\TownRegion;
 use App\CountryRegion;
 use App\TaskInfo;
-
+use Carbon\Carbon;
 class TaskController extends Controller
 {
 
@@ -79,6 +79,8 @@ class TaskController extends Controller
         $task_team_id = '';
         $task_uav_id = '';
         $task_place_id = '';
+        $task_name = '';
+        $task_status = 0;
         //使用starts_with判断字段
         foreach ($task_info as $task => $info) {
             if(starts_with($task,'task_team_id')){
@@ -91,10 +93,13 @@ class TaskController extends Controller
                 $task_place_id.=$info.',';
             }
         }
-
+        $task_name = Carbon::now()->toDateTimeString();
+        
         $task_info = array_add($task_info,'task_team_id',$task_team_id);
         $task_info = array_add($task_info,'task_uav_id',$task_uav_id);
         $task_info = array_add($task_info,'task_place_id',$task_place_id);
+        $task_info = array_add($task_info,'task_name',$task_name);
+        $task_info = array_add($task_info,'task_status',$task_status);
         TaskInfo::create($task_info);
     	return back();
     }

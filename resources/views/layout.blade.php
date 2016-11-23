@@ -11,7 +11,7 @@
 	<!-- load bootstrap -->
 	    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	<link href="/css/app.css" rel="stylesheet">
 	<!--在bootcss.com中文网上找的，编程还是有国界的 -->
 	@yield('style')
@@ -20,6 +20,13 @@
 	        'csrfToken' => csrf_token(),
 	    ]); ?>
     </script>
+    <style>
+        .footer{
+            font-size: 10px;
+            text-align: center;
+            color: #9FA6AD;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -84,9 +91,16 @@
 		@yield('content')
 	</div>
 </div>
+<hr>
+<div style="background: #242729">
+    <div class="footer">安徽啄木鸟无人机科技有限公司</div>
+    <div class="footer">0555-2827298 | 2827986</div>
+    <div class="footer">皖ICP备15026235号-1</div>
+</div>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
     <script src="/js/mobiscroll_date.js" charset="gb2312"></script>
-    <script src="js/mobiscroll.js"></script>
+    <script src="/js/mobiscroll.js"></script>
+    @yield('js')
 </body>
 </html>
