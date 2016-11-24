@@ -15,7 +15,8 @@ class CreateUavInfosTable extends Migration
     {
         Schema::create('uav_infos', function (Blueprint $table) {
             $table->increments('uav_id');
-            $table->string('uav_type');
+            $table->string('uav_name',255);
+            $table->string('uav_type',255);
             $table->dateTime('uav_buy_time');
             $table->timestamps();
         });

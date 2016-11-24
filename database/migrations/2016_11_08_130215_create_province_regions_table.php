@@ -17,6 +17,8 @@ class CreateProvinceRegionsTable extends Migration
             $table->increments('province_id');
             $table->string('province_name',10);
             $table->timestamps();
+
+            $table->unique('province_name');
         });
     }
 

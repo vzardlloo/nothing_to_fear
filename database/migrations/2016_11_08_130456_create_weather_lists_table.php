@@ -15,8 +15,6 @@ class CreateWeatherListsTable extends Migration
     {
         Schema::create('weather_lists', function (Blueprint $table) {
             $table->increments('weather_list_id');
-            $table->tinyInteger('weather_id');
-            $table->tinyInteger('windy_id');
             $table->string('weather_name');         //晴，阴，大雨；大风，小风
             $table->timestamps();
         });

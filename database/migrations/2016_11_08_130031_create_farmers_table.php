@@ -20,6 +20,8 @@ class CreateFarmersTable extends Migration
             $table->string('farmer_address');
             $table->tinyInteger('farmer_level');
             $table->timestamps();
+
+            $table->unique('farmer_name');
         });
     }
 

@@ -39,9 +39,29 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        /**
+        *胡军
+        *2016年11月19日23:32:45
+        *分离一个二级路由
+        **/
+        $this->mapAddRoutes();
     }
 
+    /**
+    *胡军
+    *2016年11月19日23:32:45
+    *分离一个二级路由
+    **/
+    protected function mapAddRoutes()
+    {
+        Route::group([
+            'prefix'=>'/add',
+            'middleware' => 'add',
+            'namespace' => 'App\Http\Controllers',
+        ], function($router){
+            require base_path('routes/add.php');
+        });
+    }
     /**
      * Define the "web" routes for the application.
      *

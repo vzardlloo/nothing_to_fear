@@ -8,6 +8,16 @@ use App\InnerUser;
 class UserController extends Controller
 {
 
+    /**
+     * 登录认证
+     * @author 胡军
+     * @date   2016年11月21日10:58:32
+     * @return [type]                   [description]
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
 	 /**
      * 用户注册
      * @author 胡军
@@ -17,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
     	$users = InnerUser::all();
-    	return view('user.index', compact('users'));
+    	return view('add.user', compact('users'));
     }
 
 	 /**
