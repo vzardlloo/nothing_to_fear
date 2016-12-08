@@ -3,6 +3,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<div class="pull-right">
+				<h5>欢迎 {{ Auth::user()->name }}</h5>
+			</div>
 			<ol class="breadcrumb">
 			  <li><a href="#">首页</a></li>
 			  <li class="active">@yield('bar')</li>

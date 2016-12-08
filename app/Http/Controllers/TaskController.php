@@ -104,5 +104,23 @@ class TaskController extends Controller
     	return back();
     }
 
+    public function item(Request $request)
+    {
+        $task_id = $request->get('task_id');
+
+        //得到所有信息
+        $task_info = \DB::table('task_info')
+            ->join('farmer','task_info.task_farmer_id', '=','farmer.farmer_id')
+            ->select('task_info.task_work_time','task_info.task_status','task_info.task_area','farmer.farmer_name','farmer.farmer_address','farmer.phone_num','task_info.task_place_id')
+            ->where('task_id','=',$task_id)
+            ->get();
+        $task = $task_info[0];
+        return view('task/item',compact('task'));
+    }
     
+    public function cancel(Request $request)
+    {
+        $task_id = $request->get('task_id');
+        return $task_id;
+    }
 }

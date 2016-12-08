@@ -12,9 +12,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@task');
 
 Route::get('database','DatabaseController@index');
 
@@ -22,7 +20,7 @@ Route::get('user_log_2_inner_user','DatabaseController@log');
 
 Route::get('login', 'DatabaseController@login');
 
-Route::post('login', array('before'=>'csrf',function(){
+Route::post('logins', array('before'=>'csrf',function(){
 	$rules = array(
 		'user_name' => 'required',
 		'password'  => 'required'
@@ -75,3 +73,17 @@ Route::post('/user','UserController@create');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+/**
+ * 作业任务信息详情
+ * @author 胡军 <hujun123qwe@163.com>
+ * @date   2016年12月8日10:20:58
+ */
+Route::get('task-item', 'TaskController@item');
+
+/**
+ * 取消任务
+ * @author 胡军 <hujun123qwe@163.com>
+ * @date   2016年12月8日14:03:45
+ */
+Route::post('task-cancel', 'TaskController@cancel');

@@ -150,6 +150,8 @@
 @endsection
 @section('style')
 <script src="js/jquery-2.1.1.js"></script>
+<script src="/js/mobiscroll_date.js" charset="gb2312"></script>
+<script src="/js/mobiscroll.js"></script>
 <link href="/css/mobiscroll_date.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/mobiscroll.css">
 <script type="text/javascript">	

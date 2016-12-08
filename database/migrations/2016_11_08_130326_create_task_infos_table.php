@@ -21,7 +21,7 @@ class CreateTaskInfosTable extends Migration
             $table->string('task_place_id',255);
             $table->string('task_uav_id',255);     //无人机型号
             $table->float('task_area');
-            $table->dateTime('task_work_time');
+            $table->date('task_work_time');
             $table->timestamps();
 
             $table->unique('task_name');
