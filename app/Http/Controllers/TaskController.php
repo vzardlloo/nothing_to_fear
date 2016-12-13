@@ -115,12 +115,39 @@ class TaskController extends Controller
             ->where('task_id','=',$task_id)
             ->get();
         $task = $task_info[0];
-        return view('task/item',compact('task'));
+
+        echo json_encode($task);
     }
     
     public function cancel(Request $request)
     {
         $task_id = $request->get('task_id');
         return $task_id;
+    }
+
+    /**
+     * 推迟任务
+     * @param  Request $request 请求链接http://lara.vel/task-delay?task_id=2&task_delay_time=12-12-1
+     * @return 1           成功
+     *         2           失败
+     * @date(2016-12-13 13:19:02)
+     * 总结：一个简单的功能，从前端的推迟按钮到选择时间到后台请求到页面提示结果
+     *        只是要求了一下，不刷新页面就搞成这样
+     * 下一步：从新学习一下jQuery
+     */ 
+    public function delay(Request $request)
+    {
+        $task_id = $request->get('task_id');
+        $task_delay_time = $request->get('task_delay_time');
+
+        $date = explode("-", $task_delay_time);
+        $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
+
+        if(TaskInfo::where('task_id',$task_id)
+            ->update(['task_work_time' => $date_form])){
+            echo json_encode(1);
+        }else{
+            echo json_encode(2);
+        }
     }
 }

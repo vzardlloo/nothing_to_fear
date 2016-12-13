@@ -11,7 +11,6 @@
 		<th>亩数</th>
 		<th>详情</th>
 		<th>推迟</th>
-		<th>取消</th>
 		<th>完成</th>
 	</thead>
 	<tbody>
@@ -27,23 +26,13 @@
 					{{ $one->task_area }}
 				</td>
 				<td>
-					<form action="{{ url('task-item') }}" method="get">
-						<input type="hidden" name="task_id" value="{{ $one->task_id }}">
-						<button type="submit" class="btn btn-default">
-							详情
-						</button>
-					</form>
+					<button type="submit" class="btn btn-primary" data-toggle="modal" data-target=".task-item" onclick="item({{ $one->task_id }})">详情</button>
 				</td>
 				<td>
-					<!-- <button type="button" onclick="delay({{ $one->task_id }})" class="btn btn-default">推迟</button> -->
-					<button type="button" data-toggle="modal" data-target=".bs-example-modal-sm" class="btn btn-default">推迟</button>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->task_id }})">推迟</button>
 				</td>
 				<td>
-					<!-- <button type="button" onclick="cancel({{ $one->task_id }})" class="btn btn-default">取消</button> -->
-					<button type="button" onclick="cancel({{ $one->task_id }})" data-toggle="modal" data-target=".task-cancel" class="btn btn-default">取消</button>
-				</td>
-				<td>
-					<button class="btn btn-default">完成</button>
+					<button class="btn btn-primary">完成</button>
 				</td>
 			</tr>
 		@endforeach
@@ -91,7 +80,7 @@
 </table>
 @endsection
 
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade task-delay" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
     	<div class="modal-header">
@@ -102,12 +91,14 @@
         	<h4 class="modal-title" id="myModalLabel">推迟到哪一天？</h4>
      	</div>
      	<div class="modal-body">
-     		<input type="text" class="form-control" id="delay_date" name="task_work_time"/>
+     		<label>格式2016-12-12</label>
+     		<input type="hidden" id="delay_task_id"/>
+     		<input type="text" class="form-control" name="task_delay_time" id="task_delay_time"/>
      	</div>
      	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        	<button type="button" class="btn btn-primary">确定</button>
-      </div>
+        	<button type="button" class="btn btn-primary" onclick="a()">确定</button>
+      	</div>
     </div>
   </div>
 </div>
@@ -139,6 +130,70 @@
   </div>
 </div>
 
+<div class="modal fade task-item" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">
+        		<span aria-hidden="true">&times;</span>
+        		<span class="sr-only">Close</span>
+        	</button>
+        	<h4 class="modal-title" id="myModalLabel">任务详情</h4>
+     	</div>
+     	<div class="modal-body">
+     		<div class="form-group">
+				<label class="control-label">作业时间</label>
+				<div class="form-control" id="time"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">作业亩数</label>
+				<div class="form-control" id="area"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">农户名</label>
+				<div class="form-control" id="farm"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">手机号</label>
+				<div class="form-control" id="phone"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">作业地点</label>
+				<div class="form-control" id="palce"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">拥有总亩数</label>
+				<div class="form-control" id="all-area"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">已作业次数</label>
+				<div class="form-control" id="work-count"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">农田喷洒难度综合评价</label>
+				<div class="form-control" id="common"></div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">地图导航（GPS点）</label>
+				<div class="form-control" id="map"></div>
+			</div>
+
+     	</div>
+     	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="button" class="btn btn-primary">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @section('style')
 <link href="/css/mobiscroll_date.css" rel="stylesheet">
@@ -161,23 +216,65 @@
         opt.time = {preset : 'time'};
         opt.default = {
             theme: 'android-ics light', //皮肤样式
-            display: 'modal', //显示方式
+            display: 'bubble', //显示方式
             mode: 'scroller', //日期选择模式
             dateFormat: 'yyyy-mm-dd',
             lang: 'zh',
             showNow: true,
             nowText: "今天",
             startYear: currYear, //开始年份
-            endYear: currYear + 10 //结束年份
+            endYear: currYear + 3 //结束年份
         };
-
         $("#delay_date").mobiscroll($.extend(opt['date'], opt['default']));
     });
-
-	//var delay = function delay(task_id){}; 
+	function delay(task_id){
+		$("#delay_task_id").val(task_id);
+	};
+	function a(){
+		var task_delay_time = $("#task_delay_time").val();
+		var delay_task_id = $("#delay_task_id").val();
+		xmlHttps = new XMLHttpRequest();
+		xmlHttps.onreadystatechange=function()
+		{
+		    if (xmlHttps.readyState==4 && xmlHttps.status==200)
+		    {
+		        var obj = xmlHttps.responseText;
+		        if(obj==1){
+		        	alert("任务推迟成功！");
+		        }else{
+		        	alert("任务推迟失败，请从新推送。");
+		        }
+		    }
+		}		
+		xmlHttps.open("GET","{{ url('task-delay') }}?task_id="+delay_task_id+"&task_delay_time="+task_delay_time,true);
+		xmlHttps.send();
+	};
 	var cancel = function cancel(task_id){
 		$("#cancel_btn").text("测试中，取消的任务标号是"+task_id);
 	};
+
+	var item = function item(task_id){
+		xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange=function()
+		{
+		    if (xmlHttp.readyState==4 && xmlHttp.status==200)
+		    {
+		        var obj = xmlHttp.responseText;
+		        var task = eval ("(" + obj + ")");
+		        $("#time").text(task["task_work_time"]);
+        		$("#area").text(task["task_area"]);
+				$("#farm").text(task["farmer_name"]);
+				$("#phone").text(task["phone_num"]);
+				$("#all-area").text(task["farmer_address"]);
+				$("#work-count").text(task["farmer_address"]);
+				$("#palce").text(task['farmer_address']);
+				$("#common").text(task['farmer_address']);
+				$("#map").text(task['farmer_address']);
+		    }
+		}		
+		xmlHttp.open("GET","{{ url('task-item') }}?task_id="+task_id,true);
+		xmlHttp.send();
+	}
 @endsection
 
 

@@ -87,3 +87,10 @@ Route::get('task-item', 'TaskController@item');
  * @date   2016年12月8日14:03:45
  */
 Route::post('task-cancel', 'TaskController@cancel');
+
+/**
+ * 推迟任务
+ * @author 胡军 <hujun123qwe@163.com>
+ * @date(2016年12月13日11:00:58)
+ */
+Route::get('task-delay', 'TaskController@delay');
