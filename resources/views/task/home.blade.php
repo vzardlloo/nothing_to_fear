@@ -13,9 +13,9 @@
 		<th>推迟</th>
 		<th>完成</th>
 	</thead>
-	<tbody>
+	<tbody id="tbodies">
 		@foreach($task_info_0 as $one)
-			<tr>
+			<tr id="task{{ $one->task_id }}">
 				<td>
 					{{ $one->task_work_time }}
 				</td>
@@ -32,7 +32,7 @@
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->task_id }})">推迟</button>
 				</td>
 				<td>
-					<button class="btn btn-primary">完成</button>
+		<button class="btn btn-primary" type="button" onclick="task_complete({{ $one->task_id }},this)">完成</button>
 				</td>
 			</tr>
 		@endforeach
@@ -227,6 +227,25 @@
         };
         $("#delay_date").mobiscroll($.extend(opt['date'], opt['default']));
     });
+    function task_complete(task_id,btn){
+		xmlHttps = new XMLHttpRequest();
+		xmlHttps.onreadystatechange=function()
+		{
+		    if (xmlHttps.readyState==4 && xmlHttps.status==200)
+		    {
+		        var obj = xmlHttps.responseText;
+		        if(obj==1){
+		        	alert("任务已完成！");
+		        	var tr = document.getElementById('task'+task_id);
+		        	tr.style.display='none';
+		        }else{
+		        	alert("任务设置完成失败，请重设。");
+		        }
+		    }
+		}		
+		xmlHttps.open("GET","{{ url('task-complete') }}?task-id="+task_id,true);
+		xmlHttps.send();
+    };
 	function delay(task_id){
 		$("#delay_task_id").val(task_id);
 	};
@@ -241,8 +260,9 @@
 		        var obj = xmlHttps.responseText;
 		        if(obj==1){
 		        	alert("任务推迟成功！");
+
 		        }else{
-		        	alert("任务推迟失败，请从新推送。");
+		        	alert("任务推迟失败，请重新推送。");
 		        }
 		    }
 		}		

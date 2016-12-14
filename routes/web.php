@@ -94,3 +94,10 @@ Route::post('task-cancel', 'TaskController@cancel');
  * @date(2016年12月13日11:00:58)
  */
 Route::get('task-delay', 'TaskController@delay');
+
+/**
+ * 完成任务
+ * @author 胡军 <hujun123qwe@163.com>
+ * @date(2016-12-14 11:07:53)
+ */
+Route::get('task-complete', 'TaskController@complete');

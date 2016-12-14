@@ -150,4 +150,14 @@ class TaskController extends Controller
             echo json_encode(2);
         }
     }
+
+    public function complete(Request $request)
+    {
+        $task_id = $request->get('task-id');
+        if(TaskInfo::where('task_id',$task_id)->update(['task_status'=>1])){
+            echo json_encode(1);
+        }else{
+            echo json_encode(2);
+        }
+    }
 }
