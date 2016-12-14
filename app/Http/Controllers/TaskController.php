@@ -144,7 +144,7 @@ class TaskController extends Controller
         $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
 
         if(TaskInfo::where('task_id',$task_id)
-            ->update(['task_work_time' => $date_form])){
+            ->update(['task_work_time' => $date_form],['task_status'=>10])){
             echo json_encode(1);
         }else{
             echo json_encode(2);

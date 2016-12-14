@@ -90,12 +90,12 @@ class HomeController extends Controller
          * 查询全部的任务
          * @var [type]
          */
-        $task_info_3 = \DB::table('task_info')
+        $task_info = \DB::table('task_info')
             ->join('farmer','task_info.task_farmer_id', '=','farmer.farmer_id')
             ->select('task_info.task_work_time', 'task_id','task_info.task_status','task_info.task_area','farmer.farmer_name')
             ->get();
 
         // return view('task.home',compact('task_info_0','task_info_3','task_info','users','farmers','uaves','weather','provinces','cities','areaes','towns','countries'));
-        return view('task.home',compact('task_info_0','task_info_3'));
+        return view('task.home',compact('task_info_0','task_info'));
     }
 }

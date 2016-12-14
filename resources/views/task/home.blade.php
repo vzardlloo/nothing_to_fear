@@ -29,7 +29,7 @@
 					<button type="submit" class="btn btn-primary" data-toggle="modal" data-target=".task-item" onclick="item({{ $one->task_id }})">详情</button>
 				</td>
 				<td>
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->task_id }})">推迟</button>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->task_id }})">推迟</button>
 				</td>
 				<td>
 		<button class="btn btn-primary" type="button" onclick="task_complete({{ $one->task_id }},this)">完成</button>
@@ -39,19 +39,18 @@
 	</tbody>
 </table>
 @endsection
-@section('panel-heading-2','已完成作业任务')
+@section('panel-heading-2','所有作业任务')
 @section('panel-body-2')
 <table class="table">
 	<thead>
 		<th>作业时间</th>
 		<th>农户名</th>
 		<th>亩数</th>
-		<th>签字</th>
 		<th>状态</th>
 		<th>评价</th>
 	</thead>
 	<tbody>
-		@foreach($task_info_3 as $one)
+		@foreach($task_info as $one)
 			<tr>
 				<td>
 					{{ $one->task_work_time }}
@@ -63,16 +62,22 @@
 					{{ $one->task_area }}
 				</td>
 				<td>
-					<button class="btn btn-default">签字</button>
+					<button class="btn btn-primary">
+						@if($one->task_status==0)
+							正常
+						@elseif($one->task_status==1)
+							完成
+						@elseif($one->task_status==10)
+							推迟
+						@elseif($one->task_status==11)
+							推迟
+						@else
+							取消
+						@endif
+					</button>
 				</td>
 				<td>
-					<button class="btn btn-default">OK</button>
-				</td>
-				<td>
-					<form action="{{ url('add/mark') }}" method="get">
-						<input type="hidden" name="task_id" value="{{ $one->task_id }}" />
-						<button type="submit" class="btn btn-default">请评价</button>	
-					</form>	
+					<button type="submit" class="btn btn-primary" data-toggle="modal" data-target=".task-mark" onclick="mark({{ $one->task_id }})">请评价</button>
 				</td>
 			</tr>
 		@endforeach
@@ -96,7 +101,7 @@
      		<input type="text" class="form-control" name="task_delay_time" id="task_delay_time"/>
      	</div>
      	<div class="modal-footer">
-        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
         	<button type="button" class="btn btn-primary" onclick="a()">确定</button>
       	</div>
     </div>
@@ -123,7 +128,7 @@
      		</ul>
      	</div>
      	<div class="modal-footer">
-        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
         	<button type="button" class="btn btn-primary" id="cancel_btn"></button>
       </div>
     </div>
@@ -188,9 +193,63 @@
 
      	</div>
      	<div class="modal-footer">
-        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
         	<button type="button" class="btn btn-primary">确定</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade task-mark" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal">
+        		<span aria-hidden="true">&times;</span>
+        		<span class="sr-only">Close</span>
+        	</button>
+        	<h4 class="modal-title" id="myModalLabel">作业名</h4>
+     	</div>
+     	<form action="{{ url('add/mark') }}" method="get">
+	     	<div class="modal-body">
+	     		<label></label>
+	     		<input type="hidden" id="mark_id" name="task_id" />
+	     			<div class="form-group">
+						<label class="control-label">作业天气</label>
+						<select class="form-control" name="task_weather">
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="control-label">作业时间段</label>
+						<input class="form-control" name="task_during"/>
+						<span class="help-block">填写格式 6:00-9:00</span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">使用农药</label>
+						<input class="form-control" name="task_chamical"/>
+						<span class="help-block">农药为每10亩的用量,如某某农药2袋20ml</span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">作业星级</label>
+						<br/>
+						<span class="glyphicon glyphicon-star-empty" id="star-1"></span>
+						<span class="glyphicon glyphicon-star-empty" id="star-2"></span>
+						<span class="glyphicon glyphicon-star-empty" id="star-3"></span>
+						<span class="glyphicon glyphicon-star-empty" id="star-4"></span>
+						<span class="glyphicon glyphicon-star-empty" id="star-5"></span>
+						<input type="hidden" id="star" name="task_mark"/>
+					</div>
+					<div class="form-group">
+						<label class="control-label">作业评语</label>
+						<textarea class="form-control" rows="3" name="task_common"></textarea>
+					</div>
+	     	</div>
+	     	<div class="modal-footer">
+	        	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+	        	<button type="submit" class="btn btn-primary">确定</button>
+	      	</div>
+      	</form>
     </div>
   </div>
 </div>
@@ -246,6 +305,9 @@
 		xmlHttps.open("GET","{{ url('task-complete') }}?task-id="+task_id,true);
 		xmlHttps.send();
     };
+    function mark(task_id){
+		$("#mark_id").val(task_id);
+    };
 	function delay(task_id){
 		$("#delay_task_id").val(task_id);
 	};
@@ -294,7 +356,48 @@
 		}		
 		xmlHttp.open("GET","{{ url('task-item') }}?task_id="+task_id,true);
 		xmlHttp.send();
-	}
+	};
+	$('#star-1').click(function(){
+	    $(this).removeClass().addClass('glyphicon glyphicon-star');
+	    $('#star-2').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-3').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-4').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-5').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star').val(1);
+	});
+	$('#star-2').click(function(){
+		$('#star-1').removeClass().addClass('glyphicon glyphicon-star');
+	    $(this).removeClass().addClass('glyphicon glyphicon-star');
+	    $('#star-3').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-4').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-5').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star').val(2);
+	});
+	$('#star-3').click(function(){
+		$('#star-1').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-2').removeClass().addClass('glyphicon glyphicon-star');
+	    $(this).removeClass().addClass('glyphicon glyphicon-star');
+	    $('#star-4').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star-5').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star').val(3);
+	});
+	$('#star-4').click(function(){
+		$('#star-1').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-3').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-2').removeClass().addClass('glyphicon glyphicon-star');
+	    $(this).removeClass().addClass('glyphicon glyphicon-star');
+	    $('#star-5').removeClass().addClass('glyphicon glyphicon-star-empty');
+	    $('#star').val(4);
+
+	});
+	$('#star-5').click(function(){
+		$('#star-1').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-3').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-4').removeClass().addClass('glyphicon glyphicon-star');
+		$('#star-2').removeClass().addClass('glyphicon glyphicon-star');
+	    $(this).removeClass().addClass('glyphicon glyphicon-star');
+	    $('#star').val(5);
+	});
 @endsection
 
 

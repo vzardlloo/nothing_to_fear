@@ -95,10 +95,10 @@
 	<button type="submit" class="btn btn-primary">提交</button>
 </form>
 @endsection
-@section('style')
+
 
 @section('js')
-<script type="text/javascript">
+
 $('#star-1').click(function(){
     $(this).removeClass().addClass('glyphicon glyphicon-star');
     $('#star').val(1);
@@ -130,5 +130,5 @@ $('#star-5').click(function(){
     $(this).removeClass().addClass('glyphicon glyphicon-star');
     $('#star').val(5);
 });
-</script>
+
 @endsection
