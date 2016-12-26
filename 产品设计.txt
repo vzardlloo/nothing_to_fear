@@ -1,0 +1,98 @@
+=======================================
+2016/12/16
+-------------------------
+添加team数据库
+----------------
+设计：	id  		=>  编号
+	   	team_name	=>	队名代码
+	   	leader_id	=>	组长名
+	   	teamer_id	=>	组员名
+	   	uav_id		=>	所属无人机编号	
+------------------
+命令行:
+	php artisan make:migrate -m Team
+	php artisan migrate
+	php artisan make:controller TeamController
+----------------
+建立URL:
+	routes\add.php		=>	get,set
+-----------------
+网页:
+	resources\add		=>	team.blade.php
+-----------------
+
+==========================================================
+2016/12/26
+------------------------------
+重新搭建
+------------------------------
+1.新建数据库，使用命令建数据库
+2.新建layout网页
+3.理清并写下所有用户操作
+4.学习数据库Elqunte
+5.学习Laravel框架性能
+--------------------------------
+>新建Laravel数据库
+	修改连接config.php中的字段,或直接修改根目录下的.env文件
+>更新数据库
+	使用php artisan migrate命令
+>添加员工数据库
+	用途:保存员工信息,单条数据库可以保存员工的分工和所在组
+	命名:staff
+	字段:	id(integer)			=>		编号默认
+			staff_name(string) 	=>		员工名
+			staff_phone(string)	=>		员工手机号
+			staff_role(string)	=>		员工角色
+			staff_row(integer)	=>		员工所在组
+	方式:	php artisan make:model -m Staff
+>添加农户数据库
+	用途:保存农户数据库,包括农户所在地,土地面积
+	命名:farmer
+	字段:	id(integer)			=>		编号
+			farmer_name(string)	=>		农户名
+			farmer_phone(string) =>		农户手机号
+			farmer_place(string) =>		农户所在地
+			farmer_area(float)	=>		农户亩数
+	方式:	php artisan make:model -m Farmer
+	问题:以前创建过Farmer会出现失败,要更新composer
+			使用命令composer dump-autoload
+>添加无人机数据库
+	用途:保存无人机信息,包括保养信息记录等
+	命名:drone
+	字段:	id(interger)			=>		编号
+			drone_row(tinyInteger)	=>		所在组编号
+			drone_buy_date(date)	=>		购买时间
+			drone_last_work(date)	=>		最后作业时间
+			drone_rote_date(date)	=>		电机最后上油时间
+			drone_check_date(date)	=>	最后全面检查时间
+			drone_repair_date(date)	=>		最后一次维修时间
+	方式:	php aritsan make:model -m Drone
+>添加任务数据库
+	用途:保存任务信息,包括作业的方方面面
+	命名:task
+	字段:	id(integer)					=>		编号
+			task_work_date(date)		=>		作业时间
+			task_farmer_id(tinyInteger)	=>		农户编号
+			task_staff_id(tinyInteger)	=>		组长编号
+			task_crop_type(string)		=>		农作物
+			task_area(float)			=>		实际喷洒亩数
+			task_is_sign(tinyInteger)	=>		是否签字
+			task_is_work(tinyInteger)	=>		是否作业
+			task_is_common(tinyInteger)	=>		是否评价
+	方式:	php artisan make:model -m Task
+>添加评价数据库
+	用途:保存评价信息,包括星级,天气,等	
+	命名:common
+	字段:	id(integer)					=>		编号
+			common_task_id(tinyInteger)	=>		任务编号
+			common_star(tinyInteger)	=>		任务星级
+			common_weather(string)		=>		天气
+			common_mark(text)			=>		评价文本
+	方式:	php artisan make:model -m Common
+-----------------------------------------------------------------------------
+>迁移数据
+	备份xlm文件
+	使用php脚本迁移了Farmer数据
+	方法:	explode(',',$string),具体见Farmer.php/txt2sql()
+>逻辑模块清理
+	

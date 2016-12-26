@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProvinceRegionsTable extends Migration
+class CreateFarmersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateProvinceRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('province_regions', function (Blueprint $table) {
-            $table->increments('province_id');
-            $table->string('province_name',10);
+        Schema::create('farmers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('farmer_name');
+            $table->string('farmer_phone')->unique();
+            $table->string('farmer_place');
+            $table->float('farmer_area');
+            
             $table->timestamps();
-
-            $table->unique('province_name');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateProvinceRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('province_regions');
+        Schema::dropIfExists('farmers');
     }
 }

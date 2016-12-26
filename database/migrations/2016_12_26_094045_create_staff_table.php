@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAreaRegionsTable extends Migration
+class CreateStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateAreaRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('area_regions', function (Blueprint $table) {
-            $table->increments('area_id');
-            $table->tinyInteger('city_id');
-            $table->string('area_name',10);
+        Schema::create('staff', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('staff_name')->unique();
+            $table->string('staff_phone')->unique();
+            $table->string('staff_role');
+            $table->tinyInteger('staff_row');
+            
             $table->timestamps();
-
-            $table->unique('area_name');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateAreaRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_regions');
+        Schema::dropIfExists('staff');
     }
 }

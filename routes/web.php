@@ -101,3 +101,7 @@ Route::get('task-delay', 'TaskController@delay');
  * @date(2016-12-14 11:07:53)
  */
 Route::get('task-complete', 'TaskController@complete');
+
+
+Route::get('txt','FarmerController@txt');
+Route::post('txt2sql','FarmerController@txt2sql');
