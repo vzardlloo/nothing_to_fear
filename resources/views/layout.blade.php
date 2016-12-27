@@ -12,7 +12,9 @@
 	    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-	<link href="/css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+	<link href="/css/my.css" rel="stylesheet">
+
 	<!--在bootcss.com中文网上找的，编程还是有国界的 -->
 	@yield('css')
     <script>
@@ -20,13 +22,6 @@
 	        'csrfToken' => csrf_token(),
 	    ]); ?>
     </script>
-    <style>
-        .footer{
-            font-size: 10px;
-            text-align: center;
-            color: #9FA6AD;
-        }
-    </style>
 </head>
 <body>
 <div id="app">
@@ -42,9 +37,7 @@
                     <span class="icon-bar"></span>
                 </button>
 			    <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'PloverUAV') }}
-                </a>
+                <a href="/"><img src="/img/logo-header.png" width="100px;" height="53px;" /></a>
 			</div>
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
 				<ul class="nav navbar-nav">
@@ -87,16 +80,16 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
+	<div class="container container-bg">
 		@yield('content')
 	</div>
 </div>
 <hr>
-<div style="background: #242729;margin-top:300px">
-    <div class="footer">安徽啄木鸟无人机科技有限公司</div>
-    <div class="footer">0555-2827298 | 2827986</div>
-    <div class="footer">皖ICP备15026235号-1</div>
-</div>
+<footer class="main">
+    <p><a href="http://www.ploveruav.com">安徽啄木鸟无人机科技有限公司</a></p>
+    <p>0555-2827298 | 2827986</p>
+    <p>皖ICP备15026235号-1</p>
+</footer>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
     @yield('js')

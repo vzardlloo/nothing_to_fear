@@ -91,11 +91,12 @@ class TaskController extends Controller
 
     public function item(Request $request)
     {
-        $task_id = $request->get('task_id');
+        $task_id = $request->get('id');
+
 
         //得到所有信息
-        $task_info = \DB::table('task_info')
-            ->join('farmer','task_info.task_farmer_id', '=','farmer.farmer_id')
+        $task_info = \DB::table('task')
+            ->join('farmers','tasks.task_farmer_id', '=','farmers.id')
             ->select('task_info.task_work_time','task_info.task_status','task_info.task_area','farmer.farmer_name','farmer.farmer_address','farmer.phone_num','task_info.task_place_id')
             ->where('task_id','=',$task_id)
             ->get();
