@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	<link href="/css/app.css" rel="stylesheet">
 	<!--在bootcss.com中文网上找的，编程还是有国界的 -->
-	@yield('style')
+	@yield('css')
     <script>
 	    window.Laravel = <?php echo json_encode([
 	        'csrfToken' => csrf_token(),
@@ -99,10 +99,7 @@
 </div>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
-    @yield('js-file')
-    <script type="text/javascript">
     @yield('js')
-    </script>
 
 </body>
 </html>

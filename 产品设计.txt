@@ -95,4 +95,29 @@
 	使用php脚本迁移了Farmer数据
 	方法:	explode(',',$string),具体见Farmer.php/txt2sql()
 >逻辑模块清理
-	
+	组长登录->查看作业情况->开始作业->完成并评价
+				|
+				`->推迟或取消->作业亩数统计
+	后台管理员->数据管理->分配任务->统计数据
+>MVC分析
+	M=> 		C=>					V=>
+	Staff/User	UserController		login.blade.php 		登录
+	Staff 		StaffController		staff.blade.php 		参看本组情况
+	Task 		Task/index			task.blade.php 			任务总览	
+	Task 		Task/delay			task-delay.blade.php	任务推迟
+	Task 		Task/finish			task-finish.blade.php 	任务完成
+	Task 		Task/cancel 		task-cancel.blade.php 	任务取消
+	Common 		Common/index 		common.blade.php 		本次任务评价
+	Common 		Common/create 		common-create.blade.php 评价本次任务
+	Farmer 		Farmer/index 		farmer.blade.php 		农户概览
+-------------------------------------------------------------------------------
+>整理web.php
+	只保留有关任务的URL
+	对URL#/直接映射到Task/index方法显示任务概览.
+>修改layout
+	修改js引用和css引用
+>Task/index
+	得到session,使用Auth::user()->name;
+	2016-12-26 23:19:26
+	轻易得到各个信息
+	导出到web网页,compact task时不要使用task[0]
