@@ -13,6 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/bootstrap-switch.css" rel="stylesheet">
 	<link href="/css/my.css" rel="stylesheet">
 
 	<!--在bootcss.com中文网上找的，编程还是有国界的 -->
@@ -92,6 +93,7 @@
 </footer>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    
     @yield('js')
 
 </body>

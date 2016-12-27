@@ -130,3 +130,14 @@
 	页尾设计:	统一背景用白色,文字用#04043F
 	标题栏:		图标04043F色, 字体04043F色, 添加logo大小100px*53px;
 	内容框:		背景图宽1170px,右角宽200px,
+	响应式导航:	使用Responsive Nav插件http://www.bootcss.com/p/responsive-nav.js/
+	按钮:		所有按钮使用Buttons库http://www.bootcss.com/p/buttons/
+>确定完成任务
+	效果:		弹窗模态对话框,将任务渐渐隐去
+				通知用户成功
+>添加bootstrap-switch.css
+	特别的难用
+	先加js,再加jQuery,再加bootstrap-switch.js
+	然后根据官方文档的列表,选Attitude列自己改元素,必须加在input容器内
+	<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
+>

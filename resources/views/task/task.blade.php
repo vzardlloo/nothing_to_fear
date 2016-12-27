@@ -6,14 +6,14 @@
 @section('panel-body-1')
 <table class="table">
 	<thead>
-		<th>作业时间</th>
+		<th>作业日期</th>
 		<th>农户名</th>
 		<th>亩数</th>
 		<th>详情</th>
 		<th>推迟</th>
 		<th>完成</th>
 	</thead>
-	<tbody id="tbodies">
+	<tbody>
 		@foreach($task as $one)
 			<tr>
 				<td>
@@ -32,7 +32,10 @@
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->id }})">推迟</button>
 				</td>
 				<td>
-		<button class="btn btn-primary" type="button" onclick="task_complete({{ $one->id }},this)">完成</button>
+				<div class="switch">
+					<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
+				</div>
+		<!-- <button class="btn btn-primary" type="button" onclick="task_complete({{ $one->id }},this)">完成</button> -->
 				</td>
 			</tr>
 		@endforeach
@@ -194,11 +197,15 @@
 @endsection
 
 @section('js')
-<script src="js/jquery-2.1.1.js"></script>
+
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap-switch.js"></script>
 <script src="/js/mobiscroll_date.js" charset="gb2312"></script>
 <script src="/js/mobiscroll.js"></script>
 <script type="text/javascript">
+		
     $(function(){
+    	$("[name=complete]").bootstrapSwitch();
         //日期控件
         var currYear = (new Date()).getFullYear();
         var opt={};
@@ -216,7 +223,8 @@
             startYear: currYear, //开始年份
             endYear: currYear + 3 //结束年份
         };
-        $("#delay_date").mobiscroll($.extend(opt['date'], opt['default']));
+        // $("#delay_date").mobiscroll($.extend(opt['date'], opt['default']));
+        
     });
     function task_complete(id,btn){
 		xmlHttps = new XMLHttpRequest();
@@ -282,7 +290,7 @@
 				$("#all-area").text(task["farmer_place"]);
 				$("#common").text(task['farmer_address']);
 				$("#map").text(task['farmer_address']);
-				
+
 		    }
 		}		
 		xmlHttp.open("GET","{{ url('task-item') }}?id="+id,true);
@@ -330,5 +338,5 @@
 	    $('#star').val(5);
 	});
 </script>
-
+@endsection
 
