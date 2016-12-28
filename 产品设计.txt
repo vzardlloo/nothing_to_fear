@@ -140,4 +140,31 @@
 	先加js,再加jQuery,再加bootstrap-switch.js
 	然后根据官方文档的列表,选Attitude列自己改元素,必须加在input容器内
 	<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
->
+--------------------------------------------------------------------------------------
+>删除面包导航栏
+>删除各项菜单
+>添加SCO collapse
+	不要使用<a>来套<table>不能实现点击,使用js
+	发现使用table很复杂,不如使用ul和li,但分段又是问题
+	直接在tr中加入a标签来
+	他有一个要求:要显示的内容必须要在trigger紧后面
+>添加时间控件
+	使用库:		datetimepicker
+	详解:		在控件加入选择器, 然后加入js语句
+	这个文档全, 而且使用方便, 赞
+>使用jQuery UI Bootstrap更换推迟按钮
+	使用Open Model Dialog
+	代码写的垃圾, 根本没法调成功
+	弃用
+	使用bootstrap的
+	将数据放到hidden的input里面submit
+>添加grumble泡泡控件
+	这个简单
+	添加js,css,图片即可
+	然后用jQuery绑定控件监听即可
+>使用web安全色
+	网址:		http://www.bootcss.com/p/websafecolors/
+>添加标题
+	啄木鸟农业•信息植保平台
+
+

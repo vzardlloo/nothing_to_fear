@@ -44,20 +44,20 @@ footer.main .dropdown-menu{bottom:115%;top:auto}
 }
 
 h1{
-	font-size: 800%;
-	line-height: .82;
+	font-size: 200%;
+	line-height: .6;
 	letter-spacing: -0.03em;
-	margin-bottom: .4em;
+	margin-bottom: .1em;
 	font-family: "proxima-nova-extra-condensed",sans-serif;
 	text-transform: uppercase;
 	text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-weight: 700;
-    color: #f43c12;
+    color: #04043f;
 }
 
 h1{
-	display: block;
+	display: inline;
     /*font-size: 2em;*/
     -webkit-margin-before: 0.67em;
     -webkit-margin-after: 0.67em;
@@ -88,3 +88,4 @@ h1::selection {
     color: transparent;
 }
 /*end*/
+

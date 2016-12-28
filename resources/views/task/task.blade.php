@@ -25,20 +25,25 @@
 				<td>
 					{{ $one->farmer_area }}
 				</td>
-				<td>
-					<button type="button" class="btn btn-primary" onclick="item({{ $one->id }})">详情</button>
+				<td id="sidebar">
+					<!-- <button type="button" class="btn btn-primary" onclick="item({{ $one->id }})">详情</button> -->
+					<a data-trigger="collapse" class="btn-collapse">详情</a>
+					<div class="collapsible" style="display:none;">
+			    		<span style="font-style: bold">手机号</span>:<br>{{ $one->farmer_phone }}<br><span style="font-style: bold">住址:</span><br>{{ $one->farmer_place }}
+					</div>
 				</td>
 				<td>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".task-delay" onclick="delay({{ $one->id }})">推迟</button>
+					<a href="#myModal" class="btn" data-toggle="modal" data-target=".task-delay">推迟</a>
 				</td>
 				<td>
 				<div class="switch">
 					<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
 				</div>
-		<!-- <button class="btn btn-primary" type="button" onclick="task_complete({{ $one->id }},this)">完成</button> -->
 				</td>
 			</tr>
+					
 		@endforeach
+					
 	</tbody>
 </table>
 @endsection
@@ -99,9 +104,12 @@
         	<h4 class="modal-title" id="myModalLabel">推迟到哪一天？</h4>
      	</div>
      	<div class="modal-body">
-     		<label>格式2016-12-12</label>
-     		<input type="hidden" id="delay_id"/>
-     		<input type="text" class="form-control" name="task_delay_time" id="task_delay_time"/>
+     		<div class="input-group date form_date col-md-10" data-date="" data-date-format="yyyy年mm月dd号" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+			    <input class="form-control" size="16" type="text" value="" readonly="">
+			    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+			</div>
+			<input type="hidden" id="task_delay_time" name="task_delay_time" value="">
      	</div>
      	<div class="modal-footer">
         	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
@@ -192,39 +200,68 @@
 </div>
 
 @section('css')
-<link href="/css/mobiscroll_date.css" rel="stylesheet">
-<link href="/css/mobiscroll.css" rel="stylesheet" type="text/css">
+<link href="/css/scojs.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.10.0.custom.css">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/grumble.min.css">
 @endsection
 
 @section('js')
-
 <script src="/js/jquery-2.1.1.js"></script>
 <script src="/js/bootstrap-switch.js"></script>
-<script src="/js/mobiscroll_date.js" charset="gb2312"></script>
-<script src="/js/mobiscroll.js"></script>
+<script src="/js/sco.collapse.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="/js/jquery.grumble.min.js"></script>
+<script src="/js/Bubble.js"></script>
 <script type="text/javascript">
-		
-    $(function(){
+	$(function(){
+		$('#sidebar').grumble(
+			{
+				text: '点击查看详情',
+				angle: 120,
+				distance: -60,
+				showAfter: 1000,
+				hideAfter: 2000,
+				hasHideButton: true,
+				buttonHideText: 'Pop!'
+			}
+		);
+		$('.form_date').datetimepicker({
+			language:  'zh-CN',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 2,
+			forceParse: 0
+		});	
     	$("[name=complete]").bootstrapSwitch();
-        //日期控件
-        var currYear = (new Date()).getFullYear();
-        var opt={};
-        opt.date = {preset : 'date'};
-        opt.datetime = {preset : 'datetime'};
-        opt.time = {preset : 'time'};
-        opt.default = {
-            theme: 'android-ics light', //皮肤样式
-            display: 'bubble', //显示方式
-            mode: 'scroller', //日期选择模式
-            dateFormat: 'yyyy-mm-dd',
-            lang: 'zh',
-            showNow: true,
-            nowText: "今天",
-            startYear: currYear, //开始年份
-            endYear: currYear + 3 //结束年份
-        };
-        // $("#delay_date").mobiscroll($.extend(opt['date'], opt['default']));
-        
+        $('#modal_link').click(function () {
+		    $('#dialog-message').dialog('open');
+		    return false;
+		});
+            // Dialogs
+	    $("#dialog-message").dialog({
+	        autoOpen: false,
+	        modal: true,
+	        buttons: {
+	            确定: function () {
+	                $(this).dialog("close");
+	            }
+	        }
+    	});
+    	    $('#dialog_link, #modal_link, ul#icons li').hover(
+
+			    function () {
+			        $(this).addClass('ui-state-hover');
+			    }, function () {
+			        $(this).removeClass('ui-state-hover');
+			    });
+
     });
     function task_complete(id,btn){
 		xmlHttps = new XMLHttpRequest();

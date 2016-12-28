@@ -40,15 +40,9 @@
 			    <!-- Branding Image -->
                 <a href="/"><img src="/img/logo-header.png" width="100px;" height="53px;" /></a>
 			</div>
-			<div class="collapse navbar-collapse" id="app-navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('add/farmer') }}">添加农户</a></li>
-					<li><a href="{{ url('add/user') }}">添加用户</a></li>
-					<li><a href="{{ url('task') }}">创建任务</a></li>
-					<li><a href="{{ url('add/address') }}">添加地址</a></li>
-					<li><a href="{{ url('add/uav') }}">添加无人机</a></li>
-				</ul>
 
+			<div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <h1>啄木鸟农业•植保信息平台</h1>
 			    <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
