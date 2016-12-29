@@ -39,10 +39,13 @@
                 </button>
 			    <!-- Branding Image -->
                 <a href="/"><img src="/img/logo-header.png" width="100px;" height="53px;" /></a>
+
 			</div>
 
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <h1>啄木鸟农业•植保信息平台</h1>
+                <ul class="nav navbar-nav">
+                    <span style="font-size: 200%; margin-left:280px;">啄木鸟农业•植保信息平台</span>
+                </ul>
 			    <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -52,9 +55,8 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                欢迎:&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
                             	<li><a href="{{ url('home') }}">主页</li>
                                 <li>

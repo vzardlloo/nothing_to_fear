@@ -26,18 +26,17 @@
 					{{ $one->farmer_area }}
 				</td>
 				<td id="sidebar">
-					<!-- <button type="button" class="btn btn-primary" onclick="item({{ $one->id }})">详情</button> -->
 					<a data-trigger="collapse" class="btn-collapse">详情</a>
 					<div class="collapsible" style="display:none;">
 			    		<span style="font-style: bold">手机号</span>:<br>{{ $one->farmer_phone }}<br><span style="font-style: bold">住址:</span><br>{{ $one->farmer_place }}
 					</div>
 				</td>
 				<td>
-					<a href="#myModal" class="btn" data-toggle="modal" data-target=".task-delay">推迟</a>
+					<a href="#myModal" class="btn-delay" data-toggle="modal" data-target=".task-delay" data-id="{{ $one->id }}" >推迟</a>
 				</td>
 				<td>
 				<div class="switch">
-					<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
+					<input type="checkbox" name="complete" data-id="{{ $one->id }}" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
 				</div>
 				</td>
 			</tr>
@@ -104,16 +103,15 @@
         	<h4 class="modal-title" id="myModalLabel">推迟到哪一天？</h4>
      	</div>
      	<div class="modal-body">
-     		<div class="input-group date form_date col-md-10" data-date="" data-date-format="yyyy年mm月dd号" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-			    <input class="form-control" size="16" type="text" value="" readonly="">
+     		<div class="input-group date form_date col-md-10" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+			    <input class="form-control" size="16" type="text" id="task_delay_date" value="" readonly="">
 			    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 			</div>
-			<input type="hidden" id="task_delay_time" name="task_delay_time" value="">
      	</div>
      	<div class="modal-footer">
         	<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-        	<button type="button" class="btn btn-primary" onclick="a()">确定</button>
+        	<button type="button" class="btn btn-primary" data-dismiss="modal" id="task-delay-ok">确定</button>
       	</div>
     </div>
   </div>
@@ -218,6 +216,23 @@
 <script src="/js/Bubble.js"></script>
 <script type="text/javascript">
 	$(function(){
+		var id;
+		$('.btn-delay').on('click',function(e){
+			id = $(this).attr('data-id');
+		});
+		$('#task-delay-ok').on('click', function(e){
+			var date = $("#task_delay_date").val();
+			var delay_ajax = $.ajax({
+				url: "{{ url('task-delay') }}?id="+id+"&task_delay_date="+date,
+				method: "get", 
+			}).done(function (data){
+				alert('任务推迟成功！'+ JSON.stringify(data));
+			}).fail(function (xhr, status){
+				alert('失败, 请重新操作, '+xhr.status+',原因'+status);
+			}).always(function (){
+
+			});
+		});
 		$('#sidebar').grumble(
 			{
 				text: '点击查看详情',
@@ -240,29 +255,21 @@
 			forceParse: 0
 		});	
     	$("[name=complete]").bootstrapSwitch();
-        $('#modal_link').click(function () {
-		    $('#dialog-message').dialog('open');
-		    return false;
+    	$('input[name="complete"]').on('switchChange.bootstrapSwitch', function(event, state) {
+		  	if(state == true){
+		  		var id = $(this).attr('data-id');
+		  		$.ajax({
+		  			type: 'get',
+		  			url: "{{ url('task-complete') }}?id="+id,
+		  		}).done(function (data){
+		  			alert('任务已完成!' + JSON.stringify(data));
+		  		}).fail(function (xhr, status){
+					alert('失败, 请重新操作, '+xhr.status+',原因'+status);
+				});
+		  	}
 		});
-            // Dialogs
-	    $("#dialog-message").dialog({
-	        autoOpen: false,
-	        modal: true,
-	        buttons: {
-	            确定: function () {
-	                $(this).dialog("close");
-	            }
-	        }
-    	});
-    	    $('#dialog_link, #modal_link, ul#icons li').hover(
-
-			    function () {
-			        $(this).addClass('ui-state-hover');
-			    }, function () {
-			        $(this).removeClass('ui-state-hover');
-			    });
-
     });
+    // js
     function task_complete(id,btn){
 		xmlHttps = new XMLHttpRequest();
 		xmlHttps.onreadystatechange=function()
@@ -285,53 +292,9 @@
     function mark(id){
 		$("#mark_id").val(id);
     };
-	function delay(id){
-		$("#delay_id").val(id);
-	};
-	function a(){
-		var task_delay_time = $("#task_delay_time").val();
-		var delay_id = $("#delay_id").val();
-		xmlHttps = new XMLHttpRequest();
-		xmlHttps.onreadystatechange=function()
-		{
-		    if (xmlHttps.readyState==4 && xmlHttps.status==200)
-		    {
-		        var obj = xmlHttps.responseText;
-		        if(obj==1){
-		        	alert("任务推迟成功！");
-
-		        }else{
-		        	alert("任务推迟失败，请重新推送。");
-		        }
-		    }
-		}		
-		xmlHttps.open("GET","{{ url('task-delay') }}?id="+delay_id+"&task_delay_time="+task_delay_time,true);
-		xmlHttps.send();
-	};
-	var cancel = function cancel(id){
-		$("#cancel_btn").text("测试中，取消的任务标号是"+id);
-	};
-
-	var item = function item(id){
-		xmlHttp = new XMLHttpRequest();
-		xmlHttp.onreadystatechange=function()
-		{
-		    if (xmlHttp.readyState==4 && xmlHttp.status==200)
-		    {
-		        var obj = xmlHttp.responseText;
-		        var task = eval ("(" + obj + ")");
-		        $("#time").text(task["task_work_date"]);
-        		$("#area").text(task["farmer_area"]);
-				$("#farm").text(task["farmer_name"]);
-				$("#phone").text(task["farmer_phone"]);
-				$("#all-area").text(task["farmer_place"]);
-				$("#common").text(task['farmer_address']);
-				$("#map").text(task['farmer_address']);
-
-		    }
-		}		
-		xmlHttp.open("GET","{{ url('task-item') }}?id="+id,true);
-		xmlHttp.send();
+	function delay(){
+		var date = $("#task_delay_date").val();
+		return date;
 	};
 	$('#star-1').click(function(){
 	    $(this).removeClass().addClass('glyphicon glyphicon-star');

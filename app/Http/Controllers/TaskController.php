@@ -123,14 +123,14 @@ class TaskController extends Controller
      */ 
     public function delay(Request $request)
     {
-        $task_id = $request->get('task_id');
-        $task_delay_time = $request->get('task_delay_time');
+        $task_id = $request->get('id');
+        $task_delay_time = $request->get('task_delay_date');
 
         $date = explode("-", $task_delay_time);
         $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
 
-        if(TaskInfo::where('task_id',$task_id)
-            ->update(['task_work_time' => $date_form],['task_status'=>10])){
+        if(Task::where('id',$task_id)
+            ->update(['task_work_date' => $date_form])){
             echo json_encode(1);
         }else{
             echo json_encode(2);
@@ -139,8 +139,8 @@ class TaskController extends Controller
 
     public function complete(Request $request)
     {
-        $task_id = $request->get('task-id');
-        if(TaskInfo::where('task_id',$task_id)->update(['task_status'=>1])){
+        $task_id = $request->get('id');
+        if(Task::where('id',$task_id)->update(['task_is_work'=>1])){
             echo json_encode(1);
         }else{
             echo json_encode(2);
