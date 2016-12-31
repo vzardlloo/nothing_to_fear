@@ -11,7 +11,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+// Auth::routes();
 
 Route::get('/','TaskController@task');
 /**

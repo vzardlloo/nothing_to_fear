@@ -183,5 +183,49 @@
 	对switch button进行判断, 绑定方法switchChange.bootstrapSwitch
 	这一步简单
 -------------------------------------------------------------------------------
+>整合后台管理模块
+	先清理数据库->seeds->AdminInitSeeds.php
+	先使用php artisan make:model -m <name>建立一些表和模块
+	用php artisan make:migration --create -- <name>建立单个表
+	然后复制对应的create函数内容
+	使用php artisan migrate 将刚才生成的表建在数据库中
+	修改Model的内容,表之间关联
+	使用php artisan db:seed --class=AdminInitSeeder添加预设数据
+	下手Controller
+	使用php artisan make:controller -r admin/IndexController命令
+	补写Controller内容,真的蛮多的,要想实现好的逻辑,代码不能少
+	使用php artisan make:event someEvent创建事件
+	查看路由设置
+----------------------------------------------------------------
+>续
+	添加middleware中间件,php artisan make:middleware Admin
+	添加requests请求,php artisan make:request <name>
+	添加listener绑定event,php artisan make:listener -e=someEvent -- someListener
+	修改Provider, 添加AdminRouter
+	查看配置文件config
+>修改View文件
+	直接复制
+>修改WEB Routes
+	复制Amdin
+----------------------------------------------------------------
+>测试
+	1. Class 'Barryvdh\Debugbar\ServiceProvider' not found
+	缺少组件不能直接复制
+	在composer.json里加入要require的库
+	然后composer update
+----关闭xdebug---->在php.ini中注释掉zend开头行
+	这个阶段用了很长时间
+		>1.必须先更新composer  composer selfupdate
+		>2.使用国内镜像更快	   https://packagist.phpcomposer.com
+		>3.使用更新命令			composer update
+		>更多命令	composer list  
+		>全局配置	composer config -l
+	2.Class admin does not exist
+	整了一天, 果真是添加route files时少了注册,要在App/Http/Kernel.php下注册
+	注意路径不要搞错Kerner同名的太多
+	3.UI重新连接
+	4.登录成功后跳到前台
+	在RedirectIfAuthenticated中间件要有跳转判断
+
 
 

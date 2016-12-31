@@ -44,7 +44,7 @@
 
 			<div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <span style="font-size: 200%; margin-left:280px;">啄木鸟农业•植保信息平台</span>
+                    <span style="font-size: 200%; margin-left:280px;"><b>啄木鸟农业</b>•植保信息平台</span>
                 </ul>
 			    <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">

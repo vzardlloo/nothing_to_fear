@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\Request;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use League\Flysystem\Exception;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,15 +18,34 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+
+
+
     /**
      * Register any authentication / authorization services.
      *
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate)
     {
-        $this->registerPolicies();
+        if(!empty($_SERVER['SCRIPT_NAME']) && strtolower($_SERVER['SCRIPT_NAME']) ==='artisan' ){
+            return false;
+        }
+        $gate->before(function ($user, $ability) {
+            if ($user->id === 1) {
+                return true;
+            }
+        });
+        $this->registerPolicies($gate);
 
-        //
+            $permissions = \App\AdminPermission::with('roles')->get();
+
+        foreach ($permissions as $permission) {
+            $gate->define($permission->name, function ($user) use ($permission) {
+                return $user->hasPermission($permission);
+            });
+        }
     }
+
+
 }
