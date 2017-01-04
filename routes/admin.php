@@ -15,8 +15,6 @@ Route::get('login', 'LoginController@showLoginForm')->name('admin.login');
 Route::post('login', 'LoginController@login');
 Route::get('logout', 'LoginController@logout');
 Route::post('logout', 'LoginController@logout');
-Route::get('/', 'IndexController@index');
-
 
 Route::get('index', ['as' => 'admin.index', 'uses' => function () {
     return redirect('/admin/log-viewer');
