@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title') | NeoCMS</title>
+    <title>@yield('title') | PloverUAV</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="_token" content="{{ csrf_token() }}"/>
@@ -33,7 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
 
     {{--dataTabels--}}
-    {{--<link href="/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet">--}}
+    <link href="/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
 
     {{--loding--}}
@@ -82,30 +82,28 @@ desired effect
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            {{--<h1>
+            <h1>
               @yield('pageHeader')
               <small>@yield('pageDesc')</small>
             </h1>
             <ol class="breadcrumb">
               <li><a href="/admin"><i class="fa fa-dashboard"></i> 控制面板</a></li>
               <li class="active">Here</li>
-            </ol>--}}
+            </ol>
             <h6>
-              {{--  @if(Request::is('admin/log-viewer*'))
+                @if(Request::is('admin/log-viewer*'))
                     仪表盘
                 @else
-                    {!! Breadcrumbs::render(Route::currentRouteName()) !!}
-                @endif--}}
+                    {{ Breadcrumbs::render(Route::currentRouteName()) }}
+                @endif
 
             </h6>
         </section>
 
         <!-- Main content -->
         <section class="content">
-
             @yield('content')
-                    <!-- Your Page Content Here -->
-
+            <!-- Your Page Content Here -->
         </section>
         <!-- /.content -->
     </div>

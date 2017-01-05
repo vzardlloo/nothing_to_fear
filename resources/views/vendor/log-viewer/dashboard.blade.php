@@ -2,7 +2,7 @@
 
 @section('content')
     @include('log-viewer::_template.navigation')
-    <h1 class="page-header">Dashboard</h1>
+    <h1 class="page-header">来自dashboard.blade.php</h1>
 
     <div class="row">
         <div class="col-md-3">

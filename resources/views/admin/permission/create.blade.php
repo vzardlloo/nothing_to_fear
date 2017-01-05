@@ -1,10 +1,10 @@
 @extends('admin.layouts.base')
 
-@section('title','控制面板')
+@section('title','啄木鸟农业')
 
-@section('pageHeader','控制面板')
+@section('pageHeader','啄木鸟植保作业信息平台')
 
-@section('pageDesc','DashBoard')
+@section('pageDesc','来自admin/permission/create.blade.php')
 
 @section('content')
     <div class="main animsition">

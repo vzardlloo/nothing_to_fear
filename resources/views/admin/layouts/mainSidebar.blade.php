@@ -4,19 +4,19 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-      {{--  <div class="user-panel">
+       <div class="user-panel">
             <div class="pull-left image">
-                <img src="/imgs/avatar/u1.jpg" class="img-circle" alt="User Image">
+                <img src="/dist/img/avatar.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{auth()->user()->username}}</p>
+                <p>{{ auth()->user()->name }}</p>
                 <!-- Status -->
                 <a><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
         </div>
---}}
+
         <!-- search form (Optional) -->
-      {{--  <form action="#" method="get" class="sidebar-form">
+       <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="搜索...">
               <span class="input-group-btn">
@@ -24,7 +24,7 @@
                 </button>
               </span>
             </div>
-        </form>--}}
+        </form>
         <!-- /.search form -->
 
         <!-- Sidebar Menu -->
@@ -32,7 +32,9 @@
             <li class="header">栏目导航</li>
             <!-- Optionally, you can add icons to the links -->
 
-            <li><a href="/admin"><i class="fa fa-dashboard"></i> <span>控制面板</span></a></li>
+            <li><a href="/admin">
+                <i class="fa fa-dashboard"></i> <span>控制面板</span></a>
+            </li>
             <?php $comData=Request::get('comData_menu'); ?>
             @foreach($comData['top'] as $v)
                 <li class="treeview  @if(in_array($v['id'],$comData['openarr'])) active @endif">
@@ -45,7 +47,11 @@
                     </ul>
                 </li>
             @endforeach
-
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>任务总览</span></a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>植保队伍</span></a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>植保无人机</span></a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>评价管理</span></a></li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>统计信息</span></a></li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.base')
 
-@section('title','首页')
+@section('title','啄木鸟植保信息平台首页')
 
 @section('pageHeader','首页')
 
@@ -46,7 +46,7 @@
 
     <div class="container">
         <div class="content">
-            <div class="title">HOME</div>
+            <div class="title">啄木鸟植保平台后台管理首页</div>
         </div>
     </div>
 

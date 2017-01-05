@@ -1,24 +1,24 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/" class="logo">
+    <a href="/admin/index" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Big</b></span>
+      <span class="logo-mini"><b>植保平台</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Big</b>Pang</span>
+      <span class="logo-lg"><b>啄木鸟</b>植保平台</span>
     </a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">点击 打开导航</span>
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-         {{-- <li class="dropdown messages-menu">
+         <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
@@ -33,7 +33,7 @@
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="/imgs/avatar/u1.jpg" class="img-circle" alt="User Image">
+                        <img src="/dist/img/avatar.png" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -50,11 +50,11 @@
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>--}}
+          </li>
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
-         {{-- <li class="dropdown notifications-menu">
+         <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -75,9 +75,9 @@
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
-          </li>--}}
+          </li>
           <!-- Tasks Menu -->
-        {{--  <li class="dropdown tasks-menu">
+        <li class="dropdown tasks-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
@@ -111,27 +111,27 @@
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>--}}
+          </li>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              {{--<img src="/imgs/avatar/u1.jpg" class="user-image" alt="User Image">--}}
+              <img src="/dist/img/avatar.png" class="user-image" alt="User Image">
              <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{auth()->user()->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="/123.png" class="img-circle" alt="User Image">
+                <img src="/dist/img/avatar.png" class="img-circle" alt="User Image">
                 <p>
                   {{auth()->user()->username}} - 系统管理员
                   <small>最后登录:{{date('Y-m-d H:i',strtotime(auth()->user()->updated_at))}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <!-- <li class="user-body">
+              <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -142,14 +142,14 @@
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div> -->
+                </div>
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                {{--<div class="pull-left">
+                <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">编辑详情</a>
-                </div>--}}
+                </div>
                 <div class="pull-right">
                   <a href="/admin/logout" class="btn btn-default btn-flat">登出</a>
                 </div>
@@ -157,9 +157,9 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-         {{-- <li>
+         <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>--}}
+          </li>
         </ul>
       </div>
     </nav>

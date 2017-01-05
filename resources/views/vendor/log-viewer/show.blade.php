@@ -2,7 +2,8 @@
 
 @section('content')
     @include('log-viewer::_template.navigation')
-    <h1 class="page-header">Log [{{ $log->date }}]</h1>
+    胡军
+<!--     <h1 class="page-header">Log [{{ $log->date }}]</h1> -->
 
     <div class="row">
         <div class="col-md-2">

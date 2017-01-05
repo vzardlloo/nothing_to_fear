@@ -1,6 +1,3 @@
-
-
-
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">权限规则</label>
     <div class="col-md-6">
