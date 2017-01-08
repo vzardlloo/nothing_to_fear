@@ -25,7 +25,8 @@ class AuthenticateAdmin
         }
 
         $previousUrl = URL::previous();
-        if(!\Gate::check(Route::currentRouteName())) {
+        $routeName = starts_with(Route::currentRouteName(), 'admin.') ? Route::currentRouteName() : 'admin.' . Route::currentRouteName();
+        if(!\Gate::check($routeName)) {
             if($request->ajax() && ($request->getMethod() != 'GET')) {
                 return response()->json([
                     'status' => -1,

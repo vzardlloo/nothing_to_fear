@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/admin/index';
     protected $username;
 
     public function __construct()

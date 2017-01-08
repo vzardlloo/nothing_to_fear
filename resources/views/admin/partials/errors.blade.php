@@ -1,6 +1,6 @@
 @if (count($errors) > 0)
     <div class="alert alert-danger">
-        <strong>出错了!</strong>
+        <strong>登录失败!</strong>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

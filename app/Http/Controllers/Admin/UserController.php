@@ -1,22 +1,17 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
-use App\AdmminRole as Role;
+use App\AdminRole as Role;
 use App\AdminUser as User;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 class UserController extends Controller
 {
     protected $fields = [
-        'name' => '',
+        'name'  => '',
         'email' => '',
         'roles' => [],
     ];
-
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +51,6 @@ class UserController extends Controller
         }
         return view('admin.user.index');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -71,11 +65,10 @@ class UserController extends Controller
         $data['rolesAll'] = Role::all()->toArray();
         return view('admin.user.create', $data);
     }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -97,22 +90,20 @@ class UserController extends Controller
         event(new \App\Events\userActionEvent('\App\AdminUser',$user->id,1,'添加了用户'.$user->name));
         return redirect('/admin/user')->withSuccess('添加成功！');
     }
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -131,55 +122,48 @@ class UserController extends Controller
         }
         $data['rolesAll'] = Role::all()->toArray();
         $data['id'] = (int)$id;
-        event(new \App\Events\userActionEvent('\App\AdminUser',$user->id,3,'编辑了用户'.$user->name));
+        event(new \App\Events\userActionEvent('\App\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
         return view('admin.user.edit', $data);
     }
-
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\AdminUserUpdateRequest $request, $id)
     {
-
         $user = User::find((int)$id);
         foreach (array_keys($this->fields) as $field) {
             $user->$field = $request->get($field);
         }
-        if ($request->get('password') != '' || $request->get('repassword') != '') {
-            if ($request->get('password') != '' && $request->get('repassword') != '' && $request->get('password') == $request->get('repassword')) {
-                $user->password = bcrypt($request->get('password'));
-            } else {
-                return redirect()->back()->withErrors('修改密码时,密码或确认密码不能为空！');
-            }
-        }
-
         unset($user->roles);
-        
-        $user->giveRoleTo($request->get('roles',[]));
-
+        if ($request->get('password') != '') {
+            $user->password = bcrypt($request->get('password'));
+        }
+        $user->save();
+        $user->giveRoleTo($request->get('roles', []));
         return redirect('/admin/user')->withSuccess('添加成功！');
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $tag = User::find((int)$id);
+        foreach ($tag->roles as $v) {
+            $tag->roles()->detach($v);
+        }
         if ($tag && $tag->id != 1) {
             $tag->delete();
         } else {
             return redirect()->back()
                 ->withErrors("删除失败");
         }
-
         return redirect()->back()
             ->withSuccess("删除成功");
     }

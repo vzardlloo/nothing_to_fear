@@ -47,10 +47,12 @@
                     </ul>
                 </li>
             @endforeach
-            <li><a href="#"><i class="fa fa-dashboard"></i> <span>任务总览</span></a></li>
-            <li><a href="#"><i class="fa fa-dashboard"></i> <span>植保队伍</span></a></li>
-            <li><a href="#"><i class="fa fa-dashboard"></i> <span>植保无人机</span></a></li>
-            <li><a href="#"><i class="fa fa-dashboard"></i> <span>评价管理</span></a></li>
+            <li><a href="/admin/task/index"><i class="fa fa-dashboard"></i> <span>任务总览</span></a></li>
+            <li><a href="/admin/team/index"><i class="fa fa-dashboard"></i> <span>植保队伍</span></a></li>
+            <li><a href="/admin/staff/index"><i class="fa fa-dashboard"></i> <span>植保员工</span></a></li>
+            <li><a href="/admin/uav/index"><i class="fa fa-dashboard"></i> <span>植保无人机</span></a></li>
+            <li><a href="/admin/farmer/index"><i class="fa fa-dashboard"></i> <span>种粮大户</span></a></li>
+            <li><a href="/admin/Common/index"><i class="fa fa-dashboard"></i> <span>评价管理</span></a></li>
             <li><a href="#"><i class="fa fa-dashboard"></i> <span>统计信息</span></a></li>
         </ul>
         <!-- /.sidebar-menu -->

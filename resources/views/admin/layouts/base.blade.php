@@ -90,14 +90,6 @@ desired effect
               <li><a href="/admin"><i class="fa fa-dashboard"></i> 控制面板</a></li>
               <li class="active">Here</li>
             </ol>
-            <h6>
-                @if(Request::is('admin/log-viewer*'))
-                    仪表盘
-                @else
-                    {{ Breadcrumbs::render(Route::currentRouteName()) }}
-                @endif
-
-            </h6>
         </section>
 
         <!-- Main content -->
@@ -194,7 +186,7 @@ desired effect
 <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 
 <!-- Bootstrap 3.3.6 -->
-<script src="/js/app.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/app.min.js"></script>
 

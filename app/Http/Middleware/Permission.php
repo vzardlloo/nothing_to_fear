@@ -1,4 +1,5 @@
-<?php namespace App\Http\Middleware;
+<?php 
+namespace App\Http\Middleware;
 
 use Illuminate\Support\Facades\Session;
 use Closure;
@@ -31,6 +32,4 @@ class Permission
         $actions = $request->route()->getAction();
         return $actions['as'];
     }
-
-    
 }

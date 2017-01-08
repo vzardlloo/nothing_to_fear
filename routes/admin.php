@@ -42,9 +42,15 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
     Route::resource('user', 'UserController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
 
+    Route::get('task/index', ['as' => 'admin.task.index', 'uses'=> 'TaskController@index']);
+    Route::get('uav/index', ['as' => 'admin.uav.index', 'uses'=> 'UavController@index']);
+    Route::get('team/index', ['as' => 'admin.team.index', 'uses'=> 'TeamController@index']);
+    Route::get('staff/index', ['as' => 'admin.staff.index', 'uses'=> 'StaffController@index']);
+    Route::get('farmer/index', ['as' => 'admin.farmer.index', 'uses'=> 'FarmerController@index']);
 });
 
 Route::get('/', function () {
     return redirect('/admin/index');
 });
+
 

@@ -220,6 +220,7 @@
 		>3.使用更新命令			composer update
 		>更多命令	composer list  
 		>全局配置	composer config -l
+		>如果提示Out of Memory 要把ＵＰＵＰＷ关了
 	2.Class admin does not exist
 	整了一天, 果真是添加route files时少了注册,要在App/Http/Kernel.php下注册
 	注意路径不要搞错Kerner同名的太多
@@ -252,3 +253,15 @@
 	但可以看到在admin/index中index.blade.php可以找到
 	以iframe的形式嵌入其中
 -------------------------------------------------------------------
+>在后台添加功能代码
+	1.登录出错
+	根据route可以找到是LoginController处理有个login函数,但在其没有
+	就应该想到是继承,方法在父类里
+	其实在llogin前台就有插入的admin.partials.error.blade.php
+	2.提示foreach参数不正确
+	必须把路由写到路由组里,才能调用中间件
+	他把菜单当权限写作路由的权限表中
+	3.Class 'Breadcrumbs' not found
+	在view/admin/layouts/base.blade.php中直接注释掉
+
+--------------------------------------------------------------------
