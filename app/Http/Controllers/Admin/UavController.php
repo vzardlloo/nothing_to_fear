@@ -14,6 +14,15 @@ use App\Http\Controllers\Controller;
 
 class UavController extends Controller
 {
+    //要填写哪些数据就写在这
+    protected $fields = [
+        'drone_row' => '' ,
+        'drone_buy_date' => '' ,
+        'drone_last_work' => '' ,
+        'drone_rote_date' => '' ,
+        'drone_check_date' => '' ,
+        'drone_repair_date' => '' ,
+    ];
 
     /**
      * 登录认证
@@ -79,34 +88,44 @@ class UavController extends Controller
      */
     public function create(Request $request)
     {
-
-    	$task_info = $request->all();
-        $task_team_id = '';
-        $task_uav_id = '';
-        $task_place_id = '';
-        $task_name = '';
-        $task_status = 0;
-        //使用starts_with判断字段
-        foreach ($task_info as $task => $info) {
-            if(starts_with($task,'task_team_id')){
-                $task_team_id.=$info.',';        //使用点号表示合并,使用加号表示数值加
-            }
-            if(starts_with($task,'task_uav_id')){
-                $task_uav_id.=$info.',';
-            }
-            if(starts_with($task,'place_')){
-                $task_place_id.=$info.',';
-            }
+        $data = [];
+        foreach ($this->fields as $field => $default) {
+            $data[$field] = old($field, $default);
         }
-        $task_name = Carbon::now()->toDateTimeString();
-        
-        $task_info = array_add($task_info,'task_team_id',$task_team_id);
-        $task_info = array_add($task_info,'task_uav_id',$task_uav_id);
-        $task_info = array_add($task_info,'task_place_id',$task_place_id);
-        $task_info = array_add($task_info,'task_name',$task_name);
-        $task_info = array_add($task_info,'task_status',$task_status);
-        TaskInfo::create($task_info);
-    	return back();
+        $data['rolesAll'] = Drone::all()->toArray();
+        return view('admin.uav.create', $data);
+    }
+
+    public function store(Request $request)
+    {
+        $uav = new Drone();
+        foreach (array_keys($this->fields) as $field) {
+            $uav->$field = $request->get($field);   //如果写成$uav->field,提示无此变量
+        }
+        $uav->save();
+        return redirect('admin/uav')->withSuccess('添加成功！');
+    }
+
+    public function edit($id)
+    {
+        $uav = Drone::find((int)$id);
+        if (!$uav) return redirect('/admin/uav')->withErrors("找不到该植保无人机!");
+        $data = ['id' => (int)$id];
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $uav->$field);
+        }
+        //dd($data);
+        return view('admin.uav.edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $uav = Drone::find((int)$id);
+        foreach (array_keys($this->fields) as $field) {
+            $uav->$field = $request->get($field);
+        }
+        $uav->save();
+        return redirect('/admin/uav')->withSuccess('修改成功！');
     }
 
     public function item(Request $request)

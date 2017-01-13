@@ -4,7 +4,7 @@
 
 @section('pageHeader','无人机列表')
 
-@section('pageDesc','DashBoard')
+@section('pageDesc','查看无人机详细信息')
 
 @section('content')
 
@@ -67,7 +67,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form class="deleteForm" method="POST" action="/admin/user">
+                    <form class="deleteForm" method="POST" action="/admin/uav">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -128,7 +128,7 @@
                 columnDefs: [
                     {
                         'targets': -1, "render": function (data, type, row) {
-                        var caozuo = '<a style="margin:3px;" href="/admin/task/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
+                        var caozuo = '<a style="margin:3px;" href="/admin/uav/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
                         if (row['id'] != 1) {
                             caozuo += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger "><i class="fa fa-times-circle-o"></i> 删除</a>';
                         }

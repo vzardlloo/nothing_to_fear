@@ -269,5 +269,7 @@
 	思路：路由—>控制器->方法->返回view->视图->form视图->数据处理
 	将所有项目列出或在Model里配置数据项
 	更改Form表格格式,添加DatePicker，注意在edit中引入文件
+	新建任务：利用_form, create()->store()
+	2.植保机管理
 	
 	
