@@ -42,7 +42,11 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
     Route::resource('user', 'UserController', ['names' => ['update' => 'admin.role.edit', 'store' => 'admin.role.create']]);
 
+    //植保作业任务路由
     Route::get('task/index', ['as' => 'admin.task.index', 'uses'=> 'TaskController@index']);
+    Route::post('task/index', ['as' => 'admin.task.index', 'uses'=> 'TaskController@index']);
+    Route::resource('task', 'TaskController', ['names' =>['update' => 'admin.task.edit', 'store' => 'admin.task.create']]);
+
     Route::get('uav/index', ['as' => 'admin.uav.index', 'uses'=> 'UavController@index']);
     Route::get('team/index', ['as' => 'admin.team.index', 'uses'=> 'TeamController@index']);
     Route::get('staff/index', ['as' => 'admin.staff.index', 'uses'=> 'StaffController@index']);

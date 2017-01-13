@@ -4,7 +4,7 @@
 
 @section('pageHeader','任务概览')
 
-@section('pageDesc','DashBoard')
+@section('pageDesc','显示所有任务，可以根据不同类型排序，可以使用搜索功能（仅能检索农户名）')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-            <a href="/admin/user/create" class="btn btn-success btn-md">
+            <a href="/admin/task/create" class="btn btn-success btn-md">
                 <i class="fa fa-plus-circle"></i> 添加任务
             </a>
         </div>
@@ -67,7 +67,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form class="deleteForm" method="POST" action="/admin/user">
+                    <form class="deleteForm" method="POST" action="/admin/task">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -112,7 +112,7 @@
                 serverSide: true,
                 ajax: {
                     url: '/admin/task/index',
-                    type: 'GET',
+                    type: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     }
@@ -157,7 +157,6 @@
                 $('.deleteForm').attr('action', '/admin/task/' + id);
                 $("#modal-delete").modal();
             });
-
         });
     </script>
 @stop

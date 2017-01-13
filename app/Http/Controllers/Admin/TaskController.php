@@ -15,6 +15,16 @@ use App\Http\Controllers\Controller;
 class TaskController extends Controller
 {
 
+    protected $fields = [
+        'task_work_date' => '' ,
+        'task_farmer_id' => '' ,
+        'task_staff_id' => '' ,
+        'task_crop_type' => '' ,
+        'task_area' => '' ,
+        'task_is_sign' => '' ,
+        'task_is_work' => '' ,
+        'task_is_common' => '' ,
+    ];
     /**
      * 登录认证
      * @author 胡军
@@ -63,11 +73,33 @@ class TaskController extends Controller
                     ->get();
             }else{
                 $data['recordsFiltered'] = Task::count();
-                $data['data'] = Task::skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'],$order[0]['dir'])->get();
+                $data['data'] = Task::skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'],$order[0]['dir'])->join('farmers','farmers.id', '=', 'tasks.task_farmer_id')->get();
             }
             return response()->json($data);
         }
     	return view('admin.task.index');
+    }
+
+    public function edit($id)          
+    {
+        $task = Task::find((int)$id);
+        if (!$task) return redirect('/admin/task')->withErrors("找不到该任务!");
+        $data = ['id' => (int)$id];
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $task->$field);
+        }
+        //dd($data);
+        return view('admin.task.edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::find((int)$id);
+        foreach (array_keys($this->fields) as $field) {
+            $task->$field = $request->get($field);
+        }
+        $task->save();
+        return redirect('/admin/task')->withSuccess('添加成功！');
     }
 
 	 /**
@@ -79,41 +111,28 @@ class TaskController extends Controller
      */
     public function create(Request $request)
     {
-
-    	$task_info = $request->all();
-        $task_team_id = '';
-        $task_uav_id = '';
-        $task_place_id = '';
-        $task_name = '';
-        $task_status = 0;
-        //使用starts_with判断字段
-        foreach ($task_info as $task => $info) {
-            if(starts_with($task,'task_team_id')){
-                $task_team_id.=$info.',';        //使用点号表示合并,使用加号表示数值加
-            }
-            if(starts_with($task,'task_uav_id')){
-                $task_uav_id.=$info.',';
-            }
-            if(starts_with($task,'place_')){
-                $task_place_id.=$info.',';
-            }
+        $data = [];
+        foreach ($this->fields as $field => $default) {
+            $data[$field] = old($field, $default);
         }
-        $task_name = Carbon::now()->toDateTimeString();
-        
-        $task_info = array_add($task_info,'task_team_id',$task_team_id);
-        $task_info = array_add($task_info,'task_uav_id',$task_uav_id);
-        $task_info = array_add($task_info,'task_place_id',$task_place_id);
-        $task_info = array_add($task_info,'task_name',$task_name);
-        $task_info = array_add($task_info,'task_status',$task_status);
-        TaskInfo::create($task_info);
-    	return back();
+        $data['rolesAll'] = Task::all()->toArray();
+        return view('admin.task.create', $data);
+    }
+
+    public function store(Request $request)
+    {   
+        $task = new Task();
+        foreach (array_keys($this->fields) as $field) {
+            $task->$field = $request->get($field);
+        }
+        $task->save();
+        // event(new \App\Events\userActionEvent('\App\AdminUser',$user->id,1,'添加了用户'.$user->name));
+        return redirect('/admin/task')->withSuccess('添加成功！');
     }
 
     public function item(Request $request)
     {
         $task_id = $request->get('id');
-
-
         //得到所有信息
         $task_info = \DB::table('task')
             ->join('farmers','tasks.task_farmer_id', '=','farmers.id')

@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{--dataTabels--}}
     <link href="/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet">
     <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
-
+    
     {{--loding--}}
     <link href="/dist/css/load/load.css" rel="stylesheet">
     @yield('css')

@@ -122,7 +122,7 @@ class UserController extends Controller
         }
         $data['rolesAll'] = Role::all()->toArray();
         $data['id'] = (int)$id;
-        event(new \App\Events\userActionEvent('\App\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
+        event(new \App\Events\userActionEvent('App\AdminUser', $user->id, 3, '编辑了用户' . $user->name));
         return view('admin.user.edit', $data);
     }
     /**
@@ -132,7 +132,7 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\AdminUserUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::find((int)$id);
         foreach (array_keys($this->fields) as $field) {
