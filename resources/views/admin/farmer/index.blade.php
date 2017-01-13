@@ -12,7 +12,7 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-            <a href="/admin/uav/create" class="btn btn-success btn-md">
+            <a href="/admin/farmer/create" class="btn btn-success btn-md">
                 <i class="fa fa-plus-circle"></i> 添加种粮大户
             </a>
         </div>

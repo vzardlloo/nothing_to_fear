@@ -59,7 +59,10 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::post('staff/index',['as' => 'admin.staff.index', 'uses'=> 'StaffController@index']);
     Route::resource('staff', 'StaffController', ['names' => ['update' => 'admin.staff.edit', 'store' => 'admin.staff.create']]);
 
+    //种粮大户管理路由
     Route::get('farmer/index', ['as' => 'admin.farmer.index', 'uses'=> 'FarmerController@index']);
+    Route::post('farmer/index',['as' => 'admin.farmer.index', 'uses'=> 'FarmerController@index']);
+    Route::resource('farmer', 'FarmerController', ['names'=>['update'=>'admin.farmer.edit', 'store'=>'admin.farmer.create']]);
 });
 
 Route::get('/', function () {

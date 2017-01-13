@@ -14,7 +14,12 @@ use App\Http\Controllers\Controller;
 
 class FarmerController extends Controller
 {
-
+    protected $fields = [
+        'farmer_name'      => '',
+        'farmer_phone'     => '',
+        'farmer_place'     => '',
+        'farmer_area'      => '',
+    ];
     /**
      * 登录认证
      * @author 胡军
@@ -70,100 +75,45 @@ class FarmerController extends Controller
     	return view('admin.farmer.index');
     }
 
-	 /**
-     * 植保任务创建
-     * @author 胡军
-     * @date   2016年11月19日09:31:49
-     * @modifed 2016年11月21日08:53:55
-     * @return [type]                   [description]
-     */
     public function create(Request $request)
     {
-
-    	$task_info = $request->all();
-        $task_team_id = '';
-        $task_uav_id = '';
-        $task_place_id = '';
-        $task_name = '';
-        $task_status = 0;
-        //使用starts_with判断字段
-        foreach ($task_info as $task => $info) {
-            if(starts_with($task,'task_team_id')){
-                $task_team_id.=$info.',';        //使用点号表示合并,使用加号表示数值加
-            }
-            if(starts_with($task,'task_uav_id')){
-                $task_uav_id.=$info.',';
-            }
-            if(starts_with($task,'place_')){
-                $task_place_id.=$info.',';
-            }
+        $data = [];
+        foreach ($this->fields as $field => $default) {
+            $data[$field] = old($field, $default);
         }
-        $task_name = Carbon::now()->toDateTimeString();
-        
-        $task_info = array_add($task_info,'task_team_id',$task_team_id);
-        $task_info = array_add($task_info,'task_uav_id',$task_uav_id);
-        $task_info = array_add($task_info,'task_place_id',$task_place_id);
-        $task_info = array_add($task_info,'task_name',$task_name);
-        $task_info = array_add($task_info,'task_status',$task_status);
-        TaskInfo::create($task_info);
-    	return back();
+        $data['rolesAll'] = Farmer::all()->toArray();
+        return view('admin.farmer.create', $data);
     }
 
-    public function item(Request $request)
+    public function store(Request $request)
     {
-        $task_id = $request->get('id');
-
-
-        //得到所有信息
-        $task_info = \DB::table('task')
-            ->join('farmers','tasks.task_farmer_id', '=','farmers.id')
-            ->select('task_info.task_work_time','task_info.task_status','task_info.task_area','farmer.farmer_name','farmer.farmer_address','farmer.phone_num','task_info.task_place_id')
-            ->where('task_id','=',$task_id)
-            ->get();
-        $task = $task_info[0];
-
-        echo json_encode($task);
-    }
-    
-    public function cancel(Request $request)
-    {
-        $task_id = $request->get('task_id');
-        return $task_id;
-    }
-
-    /**
-     * 推迟任务
-     * @param  Request $request 请求链接http://lara.vel/task-delay?task_id=2&task_delay_time=12-12-1
-     * @return 1           成功
-     *         2           失败
-     * @date(2016-12-13 13:19:02)
-     * 总结：一个简单的功能，从前端的推迟按钮到选择时间到后台请求到页面提示结果
-     *        只是要求了一下，不刷新页面就搞成这样
-     * 下一步：从新学习一下jQuery
-     */ 
-    public function delay(Request $request)
-    {
-        $task_id = $request->get('id');
-        $task_delay_time = $request->get('task_delay_date');
-
-        $date = explode("-", $task_delay_time);
-        $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
-
-        if(Farmer::where('id',$task_id)
-            ->update(['task_work_date' => $date_form])){
-            echo json_encode(1);
-        }else{
-            echo json_encode(2);
+        $farmer = new Farmer();
+        foreach (array_keys($this->fields) as $field) {
+            $farmer->$field = $request->get($field);   //如果写成$uav->field,提示无此变量
         }
+        $farmer->save();
+        return redirect('admin/farmer')->withSuccess('添加成功！');
     }
 
-    public function complete(Request $request)
+    public function edit($id)
     {
-        $task_id = $request->get('id');
-        if(Farmer::where('id',$task_id)->update(['task_is_work'=>1])){
-            echo json_encode(1);
-        }else{
-            echo json_encode(2);
+        $farmer = Farmer::find((int)$id);
+        if (!$farmer) return redirect('/admin/farmer')->withErrors("找不到该员工!");
+        $data = ['id' => (int)$id];
+        foreach (array_keys($this->fields) as $field) {
+            $data[$field] = old($field, $farmer->$field);
         }
+        //dd($data);
+        return view('admin.farmer.edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $farmer = farmer::find((int)$id);
+        foreach (array_keys($this->fields) as $field) {
+            $farmer->$field = $request->get($field);
+        }
+        $farmer->save();
+        return redirect('/admin/farmer')->withSuccess('修改成功！');
     }
 }
