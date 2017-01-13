@@ -53,7 +53,12 @@ Route::group(['middleware' => ['auth:admin', 'menu', 'authAdmin']], function () 
     Route::resource('uav', 'UavController', ['names' => ['update' => 'admin.uav.edit', 'store' => 'admin.uav.create']]);
 
     Route::get('team/index', ['as' => 'admin.team.index', 'uses'=> 'TeamController@index']);
+
+    //植保员工管理路由
     Route::get('staff/index', ['as' => 'admin.staff.index', 'uses'=> 'StaffController@index']);
+    Route::post('staff/index',['as' => 'admin.staff.index', 'uses'=> 'StaffController@index']);
+    Route::resource('staff', 'StaffController', ['names' => ['update' => 'admin.staff.edit', 'store' => 'admin.staff.create']]);
+
     Route::get('farmer/index', ['as' => 'admin.farmer.index', 'uses'=> 'FarmerController@index']);
 });
 

@@ -4,7 +4,7 @@
 
 @section('pageHeader','植保员工列表')
 
-@section('pageDesc','DashBoard')
+@section('pageDesc','注意事项：')
 
 @section('content')
 
@@ -12,7 +12,7 @@
         <div class="col-md-6">
         </div>
         <div class="col-md-6 text-right">
-            <a href="/admin/uav/create" class="btn btn-success btn-md">
+            <a href="/admin/staff/create" class="btn btn-success btn-md">
                 <i class="fa fa-plus-circle"></i> 添加新员工
             </a>
         </div>
@@ -67,7 +67,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form class="deleteForm" method="POST" action="/admin/user">
+                    <form class="deleteForm" method="POST" action="/admin/staff">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
