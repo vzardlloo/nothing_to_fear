@@ -1,0 +1,275 @@
+=======================================
+2016/12/16
+-------------------------
+添加team数据库
+----------------
+设计：	id  		=>  编号
+	   	team_name	=>	队名代码
+	   	leader_id	=>	组长名
+	   	teamer_id	=>	组员名
+	   	uav_id		=>	所属无人机编号	
+------------------
+命令行:
+	php artisan make:migrate -m Team
+	php artisan migrate
+	php artisan make:controller TeamController
+----------------
+建立URL:
+	routes\add.php		=>	get,set
+-----------------
+网页:
+	resources\add		=>	team.blade.php
+-----------------
+
+==========================================================
+2016/12/26
+------------------------------
+重新搭建
+------------------------------
+1.新建数据库，使用命令建数据库
+2.新建layout网页
+3.理清并写下所有用户操作
+4.学习数据库Elqunte
+5.学习Laravel框架性能
+--------------------------------
+>新建Laravel数据库
+	修改连接config.php中的字段,或直接修改根目录下的.env文件
+>更新数据库
+	使用php artisan migrate命令
+>添加员工数据库
+	用途:保存员工信息,单条数据库可以保存员工的分工和所在组
+	命名:staff
+	字段:	id(integer)			=>		编号默认
+			staff_name(string) 	=>		员工名
+			staff_phone(string)	=>		员工手机号
+			staff_role(string)	=>		员工角色
+			staff_row(integer)	=>		员工所在组
+	方式:	php artisan make:model -m Staff
+>添加农户数据库
+	用途:保存农户数据库,包括农户所在地,土地面积
+	命名:farmer
+	字段:	id(integer)			=>		编号
+			farmer_name(string)	=>		农户名
+			farmer_phone(string) =>		农户手机号
+			farmer_place(string) =>		农户所在地
+			farmer_area(float)	=>		农户亩数
+	方式:	php artisan make:model -m Farmer
+	问题:以前创建过Farmer会出现失败,要更新composer
+			使用命令composer dump-autoload
+>添加无人机数据库
+	用途:保存无人机信息,包括保养信息记录等
+	命名:drone
+	字段:	id(interger)			=>		编号
+			drone_row(tinyInteger)	=>		所在组编号
+			drone_buy_date(date)	=>		购买时间
+			drone_last_work(date)	=>		最后作业时间
+			drone_rote_date(date)	=>		电机最后上油时间
+			drone_check_date(date)	=>	最后全面检查时间
+			drone_repair_date(date)	=>		最后一次维修时间
+	方式:	php aritsan make:model -m Drone
+>添加任务数据库
+	用途:保存任务信息,包括作业的方方面面
+	命名:task
+	字段:	id(integer)					=>		编号
+			task_work_date(date)		=>		作业时间
+			task_farmer_id(tinyInteger)	=>		农户编号
+			task_staff_id(tinyInteger)	=>		组长编号
+			task_crop_type(string)		=>		农作物
+			task_area(float)			=>		实际喷洒亩数
+			task_is_sign(tinyInteger)	=>		是否签字
+			task_is_work(tinyInteger)	=>		是否作业
+			task_is_common(tinyInteger)	=>		是否评价
+	方式:	php artisan make:model -m Task
+>添加评价数据库
+	用途:保存评价信息,包括星级,天气,等	
+	命名:common
+	字段:	id(integer)					=>		编号
+			common_task_id(tinyInteger)	=>		任务编号
+			common_star(tinyInteger)	=>		任务星级
+			common_weather(string)		=>		天气
+			common_mark(text)			=>		评价文本
+	方式:	php artisan make:model -m Common
+-----------------------------------------------------------------------------
+>迁移数据
+	备份xlm文件
+	使用php脚本迁移了Farmer数据
+	方法:	explode(',',$string),具体见Farmer.php/txt2sql()
+>逻辑模块清理
+	组长登录->查看作业情况->开始作业->完成并评价
+				|
+				`->推迟或取消->作业亩数统计
+	后台管理员->数据管理->分配任务->统计数据
+>MVC分析
+	M=> 		C=>					V=>
+	Staff/User	UserController		login.blade.php 		登录
+	Staff 		StaffController		staff.blade.php 		参看本组情况
+	Task 		Task/index			task.blade.php 			任务总览	
+	Task 		Task/delay			task-delay.blade.php	任务推迟
+	Task 		Task/finish			task-finish.blade.php 	任务完成
+	Task 		Task/cancel 		task-cancel.blade.php 	任务取消
+	Common 		Common/index 		common.blade.php 		本次任务评价
+	Common 		Common/create 		common-create.blade.php 评价本次任务
+	Farmer 		Farmer/index 		farmer.blade.php 		农户概览
+-------------------------------------------------------------------------------
+>整理web.php
+	只保留有关任务的URL
+	对URL#/直接映射到Task/index方法显示任务概览.
+>修改layout
+	修改js引用和css引用
+>Task/index
+	得到session,使用Auth::user()->name;
+	2016-12-26 23:19:26
+	轻易得到各个信息
+	关联查找Task::where()->join()->join->select()->get();
+	导出到web网页,compact task时不要使用task[0]
+---------------------------------------------------------------------------------
+>重新布局
+	先搞layout,添加头部一道杠(图片)
+	设计理念:	使用ps,内含有公司的logo,颜色选深蓝
+	实现方法:	图片放在public/img下,然后再新建my.css中导入链接url(/img/web-logo.png)
+	页尾设计:	统一背景用白色,文字用#04043F
+	标题栏:		图标04043F色, 字体04043F色, 添加logo大小100px*53px;
+	内容框:		背景图宽1170px,右角宽200px,
+	响应式导航:	使用Responsive Nav插件http://www.bootcss.com/p/responsive-nav.js/
+	按钮:		所有按钮使用Buttons库http://www.bootcss.com/p/buttons/
+>确定完成任务
+	效果:		弹窗模态对话框,将任务渐渐隐去
+				通知用户成功
+>添加bootstrap-switch.css
+	特别的难用
+	先加js,再加jQuery,再加bootstrap-switch.js
+	然后根据官方文档的列表,选Attitude列自己改元素,必须加在input容器内
+	<input type="checkbox" name="complete" data-on-text="是" data-off-text="否" data-label-text="完成" dischecked />
+--------------------------------------------------------------------------------------
+>删除面包导航栏
+>删除各项菜单
+>添加SCO collapse
+	不要使用<a>来套<table>不能实现点击,使用js
+	发现使用table很复杂,不如使用ul和li,但分段又是问题
+	直接在tr中加入a标签来
+	他有一个要求:要显示的内容必须要在trigger紧后面
+>添加时间控件
+	使用库:		datetimepicker
+	详解:		在控件加入选择器, 然后加入js语句
+	这个文档全, 而且使用方便, 赞
+>使用jQuery UI Bootstrap更换推迟按钮
+	使用Open Model Dialog
+	代码写的垃圾, 根本没法调成功
+	弃用
+	使用bootstrap的
+	将数据放到hidden的input里面submit
+>添加grumble泡泡控件
+	这个简单
+	添加js,css,图片即可
+	然后用jQuery绑定控件监听即可
+>使用web安全色
+	网址:		http://www.bootcss.com/p/websafecolors/
+>添加标题
+	啄木鸟农业•信息植保平台
+>总结:
+	对元素在容器中如何定位很差
+	对jQuery使用很差
+	对元素的属性和属性值不知道
+	所有效率很低
+	编写程序处处受限
+------------------------------------------------------------------------------
+>添加推迟事件响应
+	异步请求处理,使用jQuery的
+	绑定确定按钮事件->使用选择器得到input值->使用ajax发送数据->在php处理保存到数据库->发送成功提示
+	怎么得到每个事件的id很重要.
+	思路不对:	不能简单的想成要传递参数, 可以封装标签属性, 然后用$(this).attr('标签名');方法得到标签值
+>添加完成事件响应
+	异步处理
+	对switch button进行判断, 绑定方法switchChange.bootstrapSwitch
+	这一步简单
+-------------------------------------------------------------------------------
+>整合后台管理模块
+	先清理数据库->seeds->AdminInitSeeds.php
+	先使用php artisan make:model -m <name>建立一些表和模块
+	用php artisan make:migration --create -- <name>建立单个表
+	然后复制对应的create函数内容
+	使用php artisan migrate 将刚才生成的表建在数据库中
+	修改Model的内容,表之间关联
+	使用php artisan db:seed --class=AdminInitSeeder添加预设数据
+	下手Controller
+	使用php artisan make:controller -r admin/IndexController命令
+	补写Controller内容,真的蛮多的,要想实现好的逻辑,代码不能少
+	使用php artisan make:event someEvent创建事件
+	查看路由设置
+----------------------------------------------------------------
+>续
+	添加middleware中间件,php artisan make:middleware Admin
+	添加requests请求,php artisan make:request <name>
+	添加listener绑定event,php artisan make:listener -e=someEvent -- someListener
+	修改Provider, 添加AdminRouter
+	查看配置文件config
+>修改View文件
+	直接复制
+>修改WEB Routes
+	复制Amdin
+----------------------------------------------------------------
+>测试
+	1. Class 'Barryvdh\Debugbar\ServiceProvider' not found
+	缺少组件不能直接复制
+	在composer.json里加入要require的库
+	然后composer update
+----关闭xdebug---->在php.ini中注释掉zend开头行
+	这个阶段用了很长时间
+		>1.必须先更新composer  composer selfupdate
+		>2.使用国内镜像更快	   https://packagist.phpcomposer.com
+		>3.使用更新命令			composer update
+		>更多命令	composer list  
+		>全局配置	composer config -l
+		>如果提示Out of Memory 要把ＵＰＵＰＷ关了
+	2.Class admin does not exist
+	整了一天, 果真是添加route files时少了注册,要在App/Http/Kernel.php下注册
+	注意路径不要搞错Kerner同名的太多
+	3.UI重新连接
+	4.登录成功后跳到前台
+	在RedirectIfAuthenticated中间件要有跳转判断
+	5.加入后台登录URL
+-------------------------------------------------------------------
+>优化
+	1.根据设计模式设计端口API
+	2.完善数据库
+	3.完善后台功能
+------------------------------------------------------------------
+>在views/admin/layout文件夹
+	base.blade.php才是真正的模板
+	首页头栏是mainHeader.blade.php
+	首页侧栏是mainSidebar.blade.php
+	在mainFooter.blade.php中发现了AdminLTE
+>很想死
+	然后手贱Google了AdminLTE发现一大堆免费HTML5模板
+	想死呀
+	找个免费模板什么都省了
+	都省了
+	连JS,CSS都不要了
+	直接专注Laravel和数据处理部分
+	啊,我走了多少弯路!!
+-------------------------------------------------------------------
+>后台URL调用
+	先使用log-viewer来调用网页,在view里没法直接对应
+	但可以看到在admin/index中index.blade.php可以找到
+	以iframe的形式嵌入其中
+-------------------------------------------------------------------
+>在后台添加功能代码
+	1.登录出错
+	根据route可以找到是LoginController处理有个login函数,但在其没有
+	就应该想到是继承,方法在父类里
+	其实在llogin前台就有插入的admin.partials.error.blade.php
+	2.提示foreach参数不正确
+	必须把路由写到路由组里,才能调用中间件
+	他把菜单当权限写作路由的权限表中
+	3.Class 'Breadcrumbs' not found
+	在view/admin/layouts/base.blade.php中直接注释掉
+--------------------------------------------------------------------
+>添加项目编辑方案
+	1.任务总览
+	思路：路由—>控制器->方法->返回view->视图->form视图->数据处理
+	将所有项目列出或在Model里配置数据项
+	更改Form表格格式,添加DatePicker，注意在edit中引入文件
+	新建任务：利用_form, create()->store()
+	2.植保机管理
+	
+	

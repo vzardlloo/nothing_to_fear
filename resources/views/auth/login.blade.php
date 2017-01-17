@@ -57,6 +57,9 @@
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                     忘记密码?
                                 </a>
+                                <a class="btn btn-link" href="{{ url('/admin/login') }}">
+                                    后台管理登录
+                                </a>
                             </div>
                         </div>
                     </form>

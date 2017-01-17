@@ -48,4 +48,31 @@ class FarmerController extends Controller
         Farmer::create($farmer_info);
     	return back();
     }
+
+    public function txt2sql(Request $request)
+    {
+        $txt = $request->file->storeAs('public','farmer.txt');
+        $file = fopen($request->file, "r");
+        if($file){
+            while(($line = fgets($file)) !== false){
+                //$str = split(',', $line);
+                $str = explode(',', $line);
+                $farmer = array();
+                $farmer=array_add($farmer,'farmer_name',$str[0]);
+                $farmer=array_add($farmer,'farmer_phone',$str[1]);
+                $farmer=array_add($farmer,'farmer_place',$str[2]);
+                $farmer=array_add($farmer,'farmer_area',floatval($str[3]));
+
+                Farmer::create($farmer);
+            }
+        }else{
+            exit();
+        }
+
+    }
+
+    public function txt()
+    {
+        return view('txt2sql');
+    }
 }

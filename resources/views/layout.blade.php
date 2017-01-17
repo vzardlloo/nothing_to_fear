@@ -12,21 +12,17 @@
 	    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-	<link href="/css/app.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/bootstrap-switch.css" rel="stylesheet">
+	<link href="/css/my.css" rel="stylesheet">
+
 	<!--在bootcss.com中文网上找的，编程还是有国界的 -->
-	@yield('style')
+	@yield('css')
     <script>
 	    window.Laravel = <?php echo json_encode([
 	        'csrfToken' => csrf_token(),
 	    ]); ?>
     </script>
-    <style>
-        .footer{
-            font-size: 10px;
-            text-align: center;
-            color: #9FA6AD;
-        }
-    </style>
 </head>
 <body>
 <div id="app">
@@ -42,19 +38,14 @@
                     <span class="icon-bar"></span>
                 </button>
 			    <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'PloverUAV') }}
-                </a>
-			</div>
-			<div class="collapse navbar-collapse" id="app-navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('add/farmer') }}">添加农户</a></li>
-					<li><a href="{{ url('add/user') }}">添加用户</a></li>
-					<li><a href="{{ url('task') }}">创建任务</a></li>
-					<li><a href="{{ url('add/address') }}">添加地址</a></li>
-					<li><a href="{{ url('add/uav') }}">添加无人机</a></li>
-				</ul>
+                <a href="/"><img src="/img/logo-header.png" width="100px;" height="53px;" /></a>
 
+			</div>
+
+			<div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <span style="font-size: 200%; margin-left:280px;"><b>啄木鸟农业</b>•植保信息平台</span>
+                </ul>
 			    <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
@@ -64,9 +55,8 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                欢迎:&nbsp;{{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
                             	<li><a href="{{ url('home') }}">主页</li>
                                 <li>
@@ -87,20 +77,20 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container">
+	<div class="container container-bg">
 		@yield('content')
 	</div>
 </div>
 <hr>
-<div style="background: #242729;margin-top:300px">
-    <div class="footer">安徽啄木鸟无人机科技有限公司</div>
-    <div class="footer">0555-2827298 | 2827986</div>
-    <div class="footer">皖ICP备15026235号-1</div>
-</div>
+<footer class="main">
+    <p><a href="http://www.ploveruav.com">安徽啄木鸟无人机科技有限公司</a></p>
+    <p>0555-2827298 | 2827986</p>
+    <p>皖ICP备15026235号-1</p>
+</footer>
     <!-- Scripts -->
     <script src="/js/app.js"></script>
-    <script src="/js/mobiscroll_date.js" charset="gb2312"></script>
-    <script src="/js/mobiscroll.js"></script>
+    
     @yield('js')
+
 </body>
 </html>

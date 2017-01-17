@@ -50,3 +50,12 @@ Route::post('/user','UserController@create');
 Route::get('mark','MarkController@index');
 
 Route::post('mark','MarkController@create');
+
+/**
+ * 编组,建组
+ * @author 胡军 <hujun123qwe@163.com>
+ * @time(2016年12月16日10:15:44)
+ */
+Route::get('team','TeamController@index');
+
+Route::post('team','TeamController@create');

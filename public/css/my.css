@@ -1,0 +1,91 @@
+/*UI参看网站www.laravel.com*/
+body{
+	margin:0;
+	color:#04043F;
+	font-family:"Source Sans Pro",sans-serif;
+	font-size:16px;
+	background:url(/img/web-logo.png) repeat-x #fff;
+	padding-top:10px;
+}
+
+footer.main{background:#eaeaea;padding:3px 2px;text-align:center;}
+footer.main>ul{list-style:none;margin:25px auto 35px;padding:0}
+footer.main>ul>li{display:inline-block;margin:0 18px}
+footer.main>ul>li>a{font-size:16px;color:#525252}
+footer.main>ul>li>a:hover{color:#f4645f}
+footer.main p{color:#000000;margin-bottom:3px;font-size:16px}
+footer.main p a{color:#000000}
+footer.main p a:hover{color:#2f3146}
+footer.main p.less-significant{margin:0}
+footer.main p.less-significant a{color:#AEAEAE;display:inline-block;font-size:10px;margin:25px 0 0}
+footer.main p.less-significant a svg{margin-top:3px}
+footer.main p.less-significant a:hover svg path{fill:#f4645f}
+footer.main .dropdown-menu{bottom:115%;top:auto}
+
+.container-bg{
+	background:url(/img/logo.png) no-repeat;
+	overflow: hidden;
+}
+
+
+/*漂亮的H1字体,来至http://www.bootcss.com/p/responsive-nav.js*/
+@media screen and (min-width: 46.25em){
+	h1{
+	margin-bottom: .2em;
+	font-size: 620%;
+}
+
+}
+
+@media screen and (min-width: 37.5em){
+	h1{
+		font-size:400%;
+	}
+}
+
+h1{
+	font-size: 200%;
+	line-height: .6;
+	letter-spacing: -0.03em;
+	margin-bottom: .1em;
+	font-family: "proxima-nova-extra-condensed",sans-serif;
+	text-transform: uppercase;
+	text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700;
+    color: #04043f;
+}
+
+h1{
+	display: inline;
+    /*font-size: 2em;*/
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    /*font-weight: bold;*/
+}
+
+h1::selection:window-inactive {
+    background: #bab9b6;
+}
+
+h1::selection {
+    -webkit-text-stroke: 2px #f43c12;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(244, 60, 18);
+    background: transparent;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: transparent;
+    color: transparent;
+}
+/*end*/
+

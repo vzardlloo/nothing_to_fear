@@ -16,6 +16,14 @@ class Kernel extends ConsoleKernel
         //
     ];
 
+    // protected $routeMiddleware = [
+    //     'auth' => 'App\Http\Middleware\Authenticate',
+    //     'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+    //     'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+    //     // This was missing
+    //     'admin' => 'App\Http\Middleware\AuthenticateAdmin',
+    // ];
+
     /**
      * Define the application's command schedule.
      *

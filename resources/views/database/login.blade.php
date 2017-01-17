@@ -32,7 +32,7 @@
 				@if ($errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
 			</div>
 			
-			<button type="submit" class="btn btn-success"> 爱登不登</button>
+			<button type="submit" class="btn btn-success"> 登录</button>
 		</form>
 	</div>
 </div>
