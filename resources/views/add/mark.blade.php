@@ -10,6 +10,8 @@
 		<th>天气</th>
 		<th>星级</th>
 		<th>评价</th>
+
+
 	</thead>
 	<tbody>
 		@foreach($mark_info as $one)

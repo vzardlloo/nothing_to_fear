@@ -29,7 +29,7 @@ class MarkController extends Controller
 
     	$place = explode(',',$task_info[0]->task_place_id);
     	//dd($task_place);
-    	$provinces = ProvinceRegion::where('province_id','=',$place[0])->get();
+    	$provinces = ProvinceRegion::where('province_id','=',$place[0])->get();   //显示结果集
     	$cities = CityRegion::where('city_id','=',$place[1])->get();
     	$areaes = AreaRegion::where('area_id','=',$place[2])->get();
     	$towns = TownRegion::where('town_id','=',$place[3])->get();

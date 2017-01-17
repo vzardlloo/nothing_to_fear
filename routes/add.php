@@ -50,3 +50,13 @@ Route::post('/user','UserController@create');
 Route::get('mark','MarkController@index');
 
 Route::post('mark','MarkController@create');
+
+/**
+ * 修改任务信息
+ * @author 鹿才磊 <vzardlloo@gmail.com>
+ * 
+ */
+Route::get('modify','ModifyController@index');
+
+Route::post('modify','ModifyController@update');
+

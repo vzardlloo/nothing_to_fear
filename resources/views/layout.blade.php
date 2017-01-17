@@ -53,6 +53,7 @@
 					<li><a href="{{ url('task') }}">创建任务</a></li>
 					<li><a href="{{ url('add/address') }}">添加地址</a></li>
 					<li><a href="{{ url('add/uav') }}">添加无人机</a></li>
+                    <li><a href="{{ url('delete/user') }}">删除用户</a></li>
 				</ul>
 
 			    <!-- Right Side Of Navbar -->
