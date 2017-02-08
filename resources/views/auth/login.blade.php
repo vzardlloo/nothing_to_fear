@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>啄木鸟农业 - 植保信息平台</title>
@@ -12,13 +12,13 @@
 
 	<!--     Fonts and icons     -->
 	<!-- 因为index.PHP也在public下,所以url直接省去public -->
-	<link rel="stylesheet" href="/assets/icon.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/font.css" />
-	<link rel="stylesheet" href="/assets/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/icon"/>
+    <link rel="stylesheet" type="text/css" href="assets/font.css" />
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/material-kit.css" rel="stylesheet"/>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
 
 </head>
 
@@ -54,7 +54,7 @@
     </nav>
 
     <div class="wrapper">
-		<div class="header header-filter" style="background-image: url('/assets/img/city.jpg'); background-size: cover; background-position: top center;">
+		<div class="header header-filter" style="background-image: url('assets/img/city.jpg'); background-size: cover; background-position: top center;">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">

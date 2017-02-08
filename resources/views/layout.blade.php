@@ -11,9 +11,9 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
 	<!--     Fonts and icons     -->
-	<link rel="stylesheet" href="/assets/icon.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/font.css" />
-	<link rel="stylesheet" href="/assets/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/icon"/>
+    <link rel="stylesheet" type="text/css" href="assets/font.css" />
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
