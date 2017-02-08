@@ -43,7 +43,7 @@ class TaskController extends Controller
         //$task = Task::get()->where('task_staff_id','=',$staff[0]['staff_row']);
         //得到农户信息
         //$farmer = Farmer::get()->where('id','=',$task[0]['task_farmer_id']);
-        $task = Task::where('task_staff_id','=',$staff[0]['staff_row'])->join('farmers','farmers.id', '=', 'tasks.task_farmer_id')->select('farmers.farmer_name','farmers.farmer_phone','farmers.farmer_place','farmers.farmer_area','tasks.task_work_date','tasks.id')->get();
+        $task = Task::where('task_staff_id','=',$staff[0]['staff_row'])->join('farmers','farmers.id', '=', 'tasks.task_farmer_id')->select('farmers.farmer_name','tasks.task_farmer_id','tasks.task_work_date','tasks.id','tasks.task_area')->get();
         //var_dump($farmer[0]);
         //$task = $task[0];
 //var_dump($task);
@@ -93,7 +93,6 @@ class TaskController extends Controller
     {
         $task_id = $request->get('id');
 
-
         //得到所有信息
         $task_info = \DB::table('task')
             ->join('farmers','tasks.task_farmer_id', '=','farmers.id')
@@ -107,8 +106,8 @@ class TaskController extends Controller
     
     public function cancel(Request $request)
     {
-        $task_id = $request->get('task_id');
-        return $task_id;
+        $task_id = $request->get('id');
+        return view('task.cancel',compact('task_id'));
     }
 
     /**
@@ -123,18 +122,22 @@ class TaskController extends Controller
      */ 
     public function delay(Request $request)
     {
-        $task_id = $request->get('id');
-        $task_delay_time = $request->get('task_delay_date');
+        if($request->isMethod('post')){
+            $task_id = $request->get('id');
+            $task_delay_time = $request->get('task_delay_date');
 
-        $date = explode("-", $task_delay_time);
-        $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
+            $date = explode("-", $task_delay_time);
+            $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
 
-        if(Task::where('id',$task_id)
-            ->update(['task_work_date' => $date_form])){
-            echo json_encode(1);
-        }else{
-            echo json_encode(2);
+            if(Task::where('id',$task_id)
+                ->update(['task_work_date' => $date_form])){
+                echo json_encode(1);
+            }else{
+                echo json_encode(2);
+            }
         }
+        $task_id = $request->get('id');
+        return view('task.delay',compact('task_id'));
     }
 
     public function complete(Request $request)

@@ -23,25 +23,11 @@ class MarkController extends Controller
 	 */
     public function index(Request $request)
     {
-    	$mark_info = TaskMark::all();
-    	$task_id = $request->get('task_id');
-    	$task_info = TaskInfo::where('task_id','=',$task_id)->get();
+        if($request->isMethod('post')){
 
-    	$place = explode(',',$task_info[0]->task_place_id);
-    	//dd($task_place);
-    	$provinces = ProvinceRegion::where('province_id','=',$place[0])->get();
-    	$cities = CityRegion::where('city_id','=',$place[1])->get();
-    	$areaes = AreaRegion::where('area_id','=',$place[2])->get();
-    	$towns = TownRegion::where('town_id','=',$place[3])->get();
-    	$countries =  CountryRegion::where('country_id','=',$place[4])->get();
-
-    	//得到工作人员名
-    	$user_id = explode(',',$task_info[0]->task_team_id);
-    	$user_info = InnerUser::whereIn('inner_user_id',$user_id)->select('user_name')->get();
-    	// dd($user_info);
-    	
-    	$weather_info = WeatherList::all();
-    	return view('add.mark',compact('mark_info','weather_info','user_info','task_info','provinces','cities','areaes','towns','countries'));
+        }
+    	$task_id = $request->get('id');
+    	return view('task.mark',compact('task_id'));
     }
 
     public function create(Request $request)

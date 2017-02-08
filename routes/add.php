@@ -47,9 +47,9 @@ Route::post('/user','UserController@create');
  * @date 	2016年11月22日21:26:04
  * @return webpage see in resources/add/..
  */
-Route::get('mark','MarkController@index');
+// Route::get('mark','MarkController@index');
 
-Route::post('mark','MarkController@create');
+// Route::post('mark','MarkController@create');
 
 /**
  * 编组,建组

@@ -75,4 +75,12 @@ class FarmerController extends Controller
     {
         return view('txt2sql');
     }
+
+    public function info(Request $request)
+    {
+        $id = $request->get('id');
+        $farmer_info = Farmer::where('id','=',$id)->get();
+        $info = $farmer_info[0];
+        return view('farmer.info',compact('info'));
+    }
 }
