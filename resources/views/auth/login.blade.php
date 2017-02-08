@@ -12,9 +12,9 @@
 
 	<!--     Fonts and icons     -->
 	<!-- 因为index.PHP也在public下,所以url直接省去public -->
-	<link rel="stylesheet" href="assets/icon"/>
-    <link rel="stylesheet" type="text/css" href="assets/font.css" />
-	<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="assets/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Roboto:300,400,500,700"/>
+	<link rel="stylesheet" href="http://libs.useso.com/js/font-awesome/4.2.0/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
