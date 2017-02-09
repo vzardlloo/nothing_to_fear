@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-cn">
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8"/>
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -38,10 +38,10 @@
 	    	<a href="http://x.ploveruav.com">
 	        	<div class="logo-container">
 	                <div class="logo">
-	                    <img src="assets/img/logo.png" alt="Creative Tim Logo" rel="tooltip" title="<b>Material Kit</b> was Designed & Coded with care by the staff from <b>Creative Tim</b>" data-placement="bottom" data-html="true">
+	                    <img src="assets/img/logo.jpg" class="img-rounded" alt="Creative Tim Logo" rel="tooltip" title="<b>Material Kit</b> was Designed & Coded with care by the staff from <b>Creative Tim</b>" data-placement="bottom" data-html="true">
 	                </div>
 	                <div class="brand">
-	                    啄木鸟&nbsp;&nbsp;&nbsp;农业
+	                    啄木鸟农业 PloverUAV
 	                </div>
 				</div>
 	      	</a>
@@ -71,7 +71,7 @@
 <!-- End Navbar -->
 
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('assets/img/bg2.jpg');">
+	<div class="header header-filter" style="background-image: url('assets/img/bg2.jpg'); background-size: cover; background-position: top center;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
@@ -90,32 +90,32 @@
 	</div>
     <footer class="footer">
 	    <div class="container">
-	        <nav class="pull-left">
-	            <ul>
+            <nav class="pull-left">
+				<ul>
 					<li>
 						<a href="http://www.ploveruav.com">
 							啄木鸟官网
 						</a>
 					</li>
 					<li>
-						<a href="http://ploveruav.com/about">
+						<a href="http://weixin.ploveruav.com/about.html">
 						   关于我们
 						</a>
 					</li>
 					<li>
-						<a href="http://ploveruav.com/connect">
-						   联系我们
+						<a href="http://weixin.ploveruav.com/contact.html">
+							联系我们
 						</a>
 					</li>
 					<li>
-						<a href="#">
-							飞防团队
+						<a href="http://weixin.ploveruav.com/team.html">
+						   啄木鸟团队
 						</a>
 					</li>
-	            </ul>
-	        </nav>
+				</ul>
+            </nav>
 	        <div class="copyright pull-right">
-	            &copy; 2017, made with <i class="material-icons">favorite</i> by Plover UAV for a better web.
+	            &copy; 2017, made with <i class="material-icons">favorite</i> by PloverUAV for a better job.
 	        </div>
 	    </div>
 	</footer>

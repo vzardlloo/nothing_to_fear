@@ -36,9 +36,9 @@ class TaskController extends Controller
         //得到登录者名字
         $user_name = \Auth::user()->name;
         //得到组长信息
-        $staff = Staff::get()->where('staff_name','=',$user_name);
+        $staff = Staff::where('staff_name','=',$user_name)->get();
         //得到所在组信息
-        $team = Staff::get()->where('staff_row','=',$staff[0]['staff_row']);
+        $team = Staff::where('staff_row','=',$staff[0]['staff_row'])->get();
         //得到任务信息
         //$task = Task::get()->where('task_staff_id','=',$staff[0]['staff_row']);
         //得到农户信息
