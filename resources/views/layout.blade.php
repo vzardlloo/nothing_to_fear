@@ -7,7 +7,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>啄木鸟农业 - 植保信息平台 BETA</title>
-
+	
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
 	<!--     Fonts and icons     -->
@@ -22,6 +23,11 @@
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="assets/css/demo.css" rel="stylesheet" />
 
+	<script>
+	   	window.Laravel = <?php echo json_encode([
+	        'csrfToken' => csrf_token(),
+	    ]); ?>
+    </script>
 </head>
 
 <body class="index-page">
@@ -35,7 +41,7 @@
 	        	<span class="icon-bar"></span>
 	        	<span class="icon-bar"></span>
 	    	</button>
-	    	<a href="http://x.ploveruav.com">
+	    	<a href="{{ url('/') }}">
 	        	<div class="logo-container">
 	                <div class="logo">
 	                    <img src="assets/img/logo.jpg" class="img-rounded" alt="Creative Tim Logo" rel="tooltip" title="<b>Material Kit</b> was Designed & Coded with care by the staff from <b>Creative Tim</b>" data-placement="bottom" data-html="true">
@@ -51,7 +57,7 @@
 	    	<ul class="nav navbar-nav navbar-right">
 	    		<li>
 					<a href="#" target="_blank">
-						<i class="material-icons">face</i>欢迎 {{ Auth::user()->name }}
+						<i class="material-icons">account_circle</i> 欢 迎 {{ Auth::user()->name }}
 					</a>
 	    		</li>
 				<li>
@@ -63,6 +69,14 @@
 					<a href="#" target="_blank">
 						<i class="material-icons">unarchive</i> Upgrade to PRO
 					</a>
+				</li>
+				<li>
+					<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+						<i class="material-icons">exit_to_app</i> 退 出
+					</a>
+					<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
 				</li>
 	    	</ul>
 	    </div>
@@ -108,7 +122,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="http://weixin.ploveruav.com/team.html">
+						<a href="{{ url('/') }}">
 						   啄木鸟团队
 						</a>
 					</li>

@@ -23,7 +23,9 @@
 		</h3>
 	</div>
 </div>
-<input type="button" class="btn btn-primary" value="返回"></input>
+<div class="text-center">
+	<button type="button" class="btn btn-primary" onclick="history.back();">返 回</button>
+</div>
 
 @endsection
 

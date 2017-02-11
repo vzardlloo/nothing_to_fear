@@ -3,15 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TaskMark;
-use App\TaskInfo;
-use App\ProvinceRegion;
-use App\CityRegion;
-use App\AreaRegion;
-use App\TownRegion;
-use App\CountryRegion;
-use App\InnerUser;
-use App\WeatherList;
+use App\Common;
 class MarkController extends Controller
 {
 	/**
@@ -35,7 +27,7 @@ class MarkController extends Controller
     	// $mark_info = array_except($request->all(),['_token']);
     	$mark_info = $request->all();
     	// dd($mark_info);
-    	TaskMark::create($mark_info);
+    	Common::create($mark_info);
     	return back();
     }
 }

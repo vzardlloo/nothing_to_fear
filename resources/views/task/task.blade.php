@@ -11,10 +11,11 @@
 		<th class="text-center">农户名</th>
 		<th class="text-center">作业亩数</th>
 		<th class="text-center">完成</th>
-		<th class="text-center">取消</th>
+<!-- 		<th class="text-center">取消</th> -->
 	</thead>
 	<tbody>
 		@foreach($task as $one)
+			@if($one->task_is_work == 0)
 			<tr>
 				<td class="text-center">
 					{{ $one->id }}
@@ -26,15 +27,16 @@
 					<a href="{{ url('farmer-info') }}/?id={{ $one->task_farmer_id }}">{{ $one->farmer_name }}</a>
 				</td>
 				<td class="text-center">
-					{{ $one->task_area }}
+					<a href="{{ url('task-map') }}/?id={{ $one->id }}">{{ $one->task_area }}</a>
 				</td>
 				<td class="text-center">
-					<a herf="{{ url('task-complete') }}/?id={{ $one->id }}" class="btn btn-primary btn-round btn-xs">完成</a>
+					<a href="{{ url('task-complete') }}/?id={{ $one->id }}" class="btn btn-primary btn-round btn-xs">完成</a>
 				</td>
-				<td class="text-center">
+<!-- 				<td class="text-center">
 					<a href="{{ url('task-cancel') }}/?id={{ $one->id }}" class="btn btn-primary btn-xs">取消</a>
-				</td>
+				</td> -->
 			</tr>
+			@endif
 		@endforeach
 	</tbody>
 </table>
@@ -63,7 +65,7 @@
 					<a href="{{ url('farmer-info') }}/?id={{ $one->task_farmer_id }}">{{ $one->farmer_name }}</a>
 				</td>
 				<td>
-					{{ $one->task_area }}
+					<a href="{{ url('task-map') }}/?id={{ $one->id }}">{{ $one->task_area }}</a>
 				</td>
 				<td>
 					<a href="{{ url('mark') }}/?id={{ $one->id }}" class="btn btn-primary btn-round btn-xs">评价</button>
@@ -75,6 +77,6 @@
 @endsection
 
 @section('js')
-<script src="/js/jquery-2.1.1.js"></script>
+<!-- <script src="/js/jquery-2.1.1.js"></script> -->
 @endsection
 

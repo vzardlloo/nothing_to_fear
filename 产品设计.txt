@@ -291,4 +291,6 @@
 ------到路由器--famer
 因为index.PHP也在public下,所以url直接省去public
 为http://lara.vel/assets/font.css
-彻底完成登陆
+彻底完成登录
+----------------------
+下一步完善首页+功能检查

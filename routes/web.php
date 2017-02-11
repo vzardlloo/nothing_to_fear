@@ -66,6 +66,7 @@ Route::post('task-delay','TaskController@delay');
  */
 Route::get('task-complete/{id?}', 'TaskController@complete');
 
+Route::post('task-complete', 'TaskController@complete');
 /**
  * txt数据插入数据库
  * @author hujun <hujun123qwe@163.com>	
@@ -76,6 +77,14 @@ Route::post('txt2sql','FarmerController@txt2sql');
 
 Route::get('farmer-info/{id?}', 'FarmerController@info');
 
+/**
+ * 评价
+ */
 Route::get('mark/{id?}','MarkController@index');
 
 Route::post('task-mark','MarkController@create');
+
+/**
+ * 2017年2月11日15:18:52
+ */
+Route::get('task-map/{id?}','TaskController@map');

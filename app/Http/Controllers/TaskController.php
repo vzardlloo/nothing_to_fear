@@ -39,14 +39,10 @@ class TaskController extends Controller
         $staff = Staff::where('staff_name','=',$user_name)->get();
         //得到所在组信息
         $team = Staff::where('staff_row','=',$staff[0]['staff_row'])->get();
-        //得到任务信息
-        //$task = Task::get()->where('task_staff_id','=',$staff[0]['staff_row']);
         //得到农户信息
         //$farmer = Farmer::get()->where('id','=',$task[0]['task_farmer_id']);
         $task = Task::where('task_staff_id','=',$staff[0]['staff_row'])->join('farmers','farmers.id', '=', 'tasks.task_farmer_id')->select('farmers.farmer_name','tasks.task_farmer_id','tasks.task_work_date','tasks.id','tasks.task_area')->get();
-        //var_dump($farmer[0]);
-        //$task = $task[0];
-//var_dump($task);
+
     	return view('task.task',compact('team','task'));
     }
 
@@ -125,15 +121,15 @@ class TaskController extends Controller
         if($request->isMethod('post')){
             $task_id = $request->get('id');
             $task_delay_time = $request->get('task_delay_date');
+            //dd($task_delay_time);
 
-            $date = explode("-", $task_delay_time);
-            $date_form = Carbon::createFromDate($date[0],$date[1],$date[2]);
-
-            if(Task::where('id',$task_id)
-                ->update(['task_work_date' => $date_form])){
-                echo json_encode(1);
+            $date = explode("/", $task_delay_time);
+            $date_form = Carbon::createFromDate($date[2],$date[0],$date[1]);
+            //dd($date_form);
+            if(Task::where('id',$task_id)->update(['task_work_date' => $date_form])){
+                return redirect('/task');
             }else{
-                echo json_encode(2);
+                dd("任务推迟出错了! 请重试.");
             }
         }
         $task_id = $request->get('id');
@@ -142,11 +138,20 @@ class TaskController extends Controller
 
     public function complete(Request $request)
     {
-        $task_id = $request->get('id');
-        if(Task::where('id',$task_id)->update(['task_is_work'=>1])){
-            echo json_encode(1);
-        }else{
-            echo json_encode(2);
+        if($request->isMethod('post')){
+            $task_id = $request->get('id');
+            if(Task::where('id',$task_id)->update(['task_is_work'=>1])){
+                return redirect('/task');
+            }else{
+                dd("完成任务出错了! 请重试.");
+            }
         }
+        $task_id = $request->get('id');
+        return view('task.complete',compact('task_id'));
+    }
+
+    public function map(Request $request)
+    {
+        return view('task.map');
     }
 }
